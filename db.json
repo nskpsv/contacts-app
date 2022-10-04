@@ -1,0 +1,97 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Пользователь Тестович",
+      "login": "test",
+      "password:": "test"
+    },
+    {
+      "id": 2,
+      "name": "Пользователь2 Тестович2",
+      "login": "test2",
+      "password:": "test2"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "contacts": [
+        {
+          "phone": "+7(947)262-12-99",
+          "name": "Guy Bond",
+          "email": "sed.nunc@google.couk",
+          "address": "173-8925 Integer Avenue",
+          "birthday": "26/12/2004"
+        },
+        {
+          "phone": "+7(983)550-42-18",
+          "name": "Tashya Carroll",
+          "email": "ultrices@aol.net",
+          "address": "Ap #249-6653 Amet St.",
+          "birthday": "9/6/1988"
+        },
+        {
+          "phone": "+7(978)518-60-71",
+          "name": "Lee Rodgers",
+          "email": "lacus.quisque.purus@aol.org",
+          "address": "790-4623 Metus. Street",
+          "birthday": "28/9/2000"
+        },
+        {
+          "phone": "+7(901)263-20-26",
+          "name": "Alma Becker",
+          "email": "blandit.congue@aol.net",
+          "address": "Ap #307-1009 Suspendisse Rd.",
+          "birthday": "30/7/1992"
+        },
+        {
+          "phone": "+7(963)578-29-74",
+          "name": "Ima Malone",
+          "email": "in@icloud.net",
+          "address": "Ap #237-2037 Taciti Rd.",
+          "birthday": "14/1/1990"
+        },
+        {
+          "phone": "+7(937)794-44-88",
+          "name": "Alexa Kaufman",
+          "email": "aliquet@yahoo.edu",
+          "address": "986-1316 Vivamus St.",
+          "birthday": "23/5/1998"
+        },
+        {
+          "phone": "+7(931)866-84-56",
+          "name": "Geraldine Oneal",
+          "email": "aenean.gravida@google.edu",
+          "address": "6402 Ut, St.",
+          "birthday": "22/2/2001"
+        },
+        {
+          "phone": "+7(988)851-52-39",
+          "name": "Quinn Puckett",
+          "email": "sapien.imperdiet@protonmail.com",
+          "address": "591-6646 Vulputate, St.",
+          "birthday": "30/12/1997"
+        },
+        {
+          "phone": "+7(901)333-26-31",
+          "name": "Randall Vazquez",
+          "email": "donec.tempus@icloud.couk",
+          "address": "409-7777 Volutpat St.",
+          "birthday": "5/5/1968"
+        },
+        {
+          "phone": "+7(959)162-47-88",
+          "name": "Cheyenne Chaney",
+          "email": "risus.varius@protonmail.edu",
+          "address": "957-8539 A, Street",
+          "birthday": "24/9/1989"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "contacts": []
+    }
+  ]
+}
