@@ -1,21 +1,28 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { checkUser, selectLogin, selectPassword, selectUser, updateLogin, updatePassword } from '../../state/authSlice';
+import { FormEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { checkUser, selectAuthState, selectIsLogin, selectLogin, selectPassword, updateLogin, updatePassword } from '../../state/authSlice';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import styles from './Auth.module.css';
 
 const Auth = () => {
 
     const dispatch = useAppDispatch();
-    const login = useAppSelector(selectLogin);
-    const password = useAppSelector(selectPassword);
-    const user = useAppSelector(selectUser);
+    const navigate = useNavigate();
+    const { login, password, isLogin } = useAppSelector(selectAuthState);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
        
-       dispatch(checkUser(login));
+       dispatch(checkUser({login, password}));
     };
 
+
+    useEffect(() => {
+        if (isLogin) {
+        navigate('/');
+        }
+    }, [isLogin]);
+    
 /* ClassNames */
     return (
         <div className={styles.auth_cont}>
@@ -45,7 +52,6 @@ const Auth = () => {
                     </label>
                     <button className={styles.submit} type='submit'>Войти</button>
                 </form>
-                <pre>{JSON.stringify(user, null, 2)}</pre>
             </main>
         </div>
     )

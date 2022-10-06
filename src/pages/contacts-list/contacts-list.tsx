@@ -1,19 +1,28 @@
 import styles from './contacts-list.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-/* https://randomuser.me/api/portraits/women/90.jpg */
+import { useAppSelector } from '../../state/hooks';
+import { selectAuthState, selectIsLogin, selectUserName } from '../../state/authSlice';
+import { Contact } from '../../models/contact';
+
+
 const ContactsList = () => {
 
     const navigate = useNavigate();
-
+    const {userName, userId, isLogin} = useAppSelector(selectAuthState)
+ 
     useEffect(() => {
-        if (true) {
-            navigate('login');
+        if (!isLogin) {
+            navigate('/login');
         }
-    })
+
+        
+    }, [isLogin])
 
     return (
-        <h1>Contacts List</h1>
+        <div className={styles.list_cont}>
+        <h1>{`Здравствуйте ${userName}`}</h1>
+        </div>
     )
 };
 

@@ -1,13 +1,19 @@
-import { User } from "./user";
+import { Contact } from "./contact";
 
 type FetchStatus = 'pending' | 'fulfilled' | 'rejected';
 
 export type AuthState = {
     login: string,
     password: string,
-    user: User | null | User[],
     userName: string | null,
+    userId: number | null,
     isLogin: boolean,
     status: FetchStatus | undefined,
     error: string | null
 };
+
+export type ContactsListState ={
+    status: FetchStatus | undefined,
+    list: Contact[] | null,
+    error: string | null
+}

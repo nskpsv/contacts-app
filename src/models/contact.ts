@@ -5,3 +5,8 @@ export type Contact = {
     address: string,
     birthday: string
 };
+
+export type ContactWithIndex = {
+    index: number,
+    contact: Contact
+}
