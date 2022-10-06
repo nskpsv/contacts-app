@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import './App.css';
-import Auth from './pages/auth/auth';
+import Auth from './pages/auth/Auth';
 import ContactsList from './pages/contacts-list/contacts-list';
 
 function App() {

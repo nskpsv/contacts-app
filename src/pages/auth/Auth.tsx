@@ -1,19 +1,21 @@
-import { FormEvent, useState } from 'react';
-import auth from '../../api/auth';
+import { FormEvent, useEffect, useState } from 'react';
+import { checkUser, selectLogin, selectPassword, selectUser, updateLogin, updatePassword } from '../../state/authSlice';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
-import styles from './auth.module.css';
+import styles from './Auth.module.css';
 
 const Auth = () => {
 
     const dispatch = useAppDispatch();
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+    const login = useAppSelector(selectLogin);
+    const password = useAppSelector(selectPassword);
+    const user = useAppSelector(selectUser);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-            
-        auth.login({login, password});
+       
+       dispatch(checkUser(login));
     };
+
 /* ClassNames */
     return (
         <div className={styles.auth_cont}>
@@ -27,7 +29,7 @@ const Auth = () => {
                         <input 
                         className={styles.field}
                         value={login}
-                        onChange={(e) => setLogin(e.target.value)}
+                        onChange={(e) => dispatch(updateLogin(e.target.value))}
                         type='text'
                         name='login'
                         autoFocus />
@@ -37,12 +39,13 @@ const Auth = () => {
                         <input
                         className={styles.field}
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => dispatch(updatePassword(e.target.value))}
                         type='password'
                         name='password' />
                     </label>
                     <button className={styles.submit} type='submit'>Войти</button>
                 </form>
+                <pre>{JSON.stringify(user, null, 2)}</pre>
             </main>
         </div>
     )

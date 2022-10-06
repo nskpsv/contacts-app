@@ -1,18 +1,6 @@
-import { User } from "../models/user";
-import { updateError, updateFetching } from "../state/authSlice";
-import { useAppDispatch } from "../state/hooks";
+import type { User } from "../models/user";
+import type { LoginData, Response } from "../models/api";
 
-type LoginData = {
-    login: string,
-    password: string
-};
-
-type Response = {
-    data: Array<User>
-    [prop: string]: any
-}
-
-const dispatch = useAppDispatch();
 
 const axios = require('axios').default;
 const api = axios.create({
@@ -21,21 +9,12 @@ const api = axios.create({
 });
 
 export default {
-    login: ({login, password}: LoginData) => {
-        dispatch(updateFetching(true));
-        
-        api.get('user', {
+    login: (login: string): Array<User> => {
+        return api.get('user', {
             params: {
                 login
             }
         })
-        .then(({ data }: Response) => {
-            if (!data.length) {
-                dispatch(updateError('Пользователя с таким именем не существует'));
-                return;
-            }
-
-
-        });
+            .then(({ data }: Response) => data);
     }
 };
