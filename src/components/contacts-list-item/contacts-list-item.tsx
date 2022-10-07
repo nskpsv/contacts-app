@@ -6,10 +6,12 @@ type Props = {
 };
 
 const ContactsListItem: React.FC<Props> = ({ contact }) => {
+console.log(contact);
 
     const getRandomPhoto = (): string => {
-        enum gender {'man', 'woman'};
-        return `https://randomuser.me/api/portraits/${gender[Math.random() * 1]}/${Math.random() * 90}.jpg` ;
+        enum gender {'men', 'women'};
+        const random = (n: number) => Math.round(Math.random() * n);
+        return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg` ;
     };
 
     return (

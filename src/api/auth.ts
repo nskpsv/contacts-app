@@ -1,5 +1,5 @@
 import type { User } from "../models/user";
-import type { LoginData, Response } from "../models/api";
+import type { LoginData, AuthResponse } from "../models/api";
 
 
 const axios = require('axios').default;
@@ -15,6 +15,6 @@ export default {
                 login
             }
         })
-            .then(({ data }: Response) => data);
+            .then(({ data }: AuthResponse) => data);
     }
 };

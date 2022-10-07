@@ -14,6 +14,6 @@ export type AuthState = {
 
 export type ContactsListState ={
     status: FetchStatus | undefined,
-    list: Contact[] | null,
+    list: Contact[],
     error: string | null
 }

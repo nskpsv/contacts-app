@@ -15,15 +15,17 @@ const initialState: AuthState = {
     error: null
 };
 
-export const checkUser = createAsyncThunk<User[], LoginData>(
+export const checkUser = createAsyncThunk<User, LoginData>(
     'auth/login',
     async ({login, password}, { rejectWithValue }) => {
         const response = await fetch(`http://localhost:4000/user?login=${login}&password=${password}`);
 
        checkResponseError(response, rejectWithValue);
             
-        const data = await response.json();
-        return data as User[];
+        const data = await response.json() as User[];
+        console.log(data[0]);
+        
+        return data[0] ;
     }
 );
 
@@ -54,7 +56,7 @@ export const authSlice = createSlice({
         });
 
         builder.addCase(checkUser.fulfilled, (state, action) => {
-            const [ user ] = action.payload;
+            const user = action.payload;
             state.error = null;
 
             if (!user) {

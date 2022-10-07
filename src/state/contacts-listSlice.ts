@@ -1,12 +1,13 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import { checkResponseError } from "../api/utils";
-import { Contact, ContactWithIndex } from "../models/contact";
+import { ContactsResponse } from "../models/api";
+import { Contact } from "../models/contact";
 import { ContactsListState } from "../models/state";
+import { RootState } from "./store";
 
 const initialState: ContactsListState = {
     status: undefined,
-    list: null,
+    list: [],
     error: null
 };
 
@@ -17,10 +18,10 @@ export const getContacts = createAsyncThunk<Contact[], number>(
 
         checkResponseError(response, rejectWithValue);
 
-        const contacts = await response.json();
-        return contacts as Contact[];
+        const contacts = await response.json() as ContactsResponse[];
+        return contacts[0].contacts ;
     }
-);
+); 
 
 const isError = (action: AnyAction) => {
     return action.type.endsWith('rejected');
@@ -47,4 +48,11 @@ export const contactsListSlice = createSlice({
             state.status = 'rejected';
         });
     }
-})
+});
+
+export const selectList = (state: RootState) => state.contacts.list;
+export const selectError = (state: RootState) => state.contacts.error;
+export const selectStatus = (state: RootState) => state.contacts.status;
+export const selectContactsState = (state: RootState) => state.contacts;
+
+export default contactsListSlice.reducer;
