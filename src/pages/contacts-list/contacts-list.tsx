@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import { selectAuthState } from '../../state/authSlice';
 import { Contact } from '../../models/contact';
-import { getContacts, selectContactsState } from '../../state/contacts-listSlice';
+import { getContacts, selectContactsState } from '../../state/contactsSlice';
 import ContactsListItem from '../../components/contacts-list-item/contacts-list-item';
 
 

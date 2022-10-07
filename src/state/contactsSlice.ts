@@ -27,7 +27,7 @@ const isError = (action: AnyAction) => {
     return action.type.endsWith('rejected');
 };
 
-export const contactsListSlice = createSlice({
+export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
     reducers: {},
@@ -55,4 +55,4 @@ export const selectError = (state: RootState) => state.contacts.error;
 export const selectStatus = (state: RootState) => state.contacts.status;
 export const selectContactsState = (state: RootState) => state.contacts;
 
-export default contactsListSlice.reducer;
+export default contactsSlice.reducer;
