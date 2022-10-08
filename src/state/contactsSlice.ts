@@ -27,6 +27,13 @@ const isError = (action: AnyAction) => {
     return action.type.endsWith('rejected');
 };
 
+const getRandomPhoto = (): string => {
+    enum gender {'men', 'women'};
+    const random = (n: number) => Math.round(Math.random() * n);
+    
+    return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg` ;
+};
+
 export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
@@ -39,7 +46,10 @@ export const contactsSlice = createSlice({
         });
 
         builder.addCase(getContacts.fulfilled, (state, action) => {
-            state.list = action.payload;
+            state.list = action.payload.map(contact => {
+                contact.photo = getRandomPhoto();
+                return contact;
+            });
             state.status = "fulfilled";
         });
 

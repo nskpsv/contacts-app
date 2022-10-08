@@ -1,13 +1,21 @@
+import { useState } from 'react';
 import { Contact } from '../../models/contact';
 import styles from './contact-editor.module.css';
 
 type Props = {
-    contact: Contact | null
+    contact: Contact | null,
+    onSubmit: Function
 }
 
 const ContactEditor: React.FC<Props> = ({ contact }) => {
+    
+    const [name, setName] = useState(contact?.name);
+    const [phone, setPhone] = useState(contact?.phone);
+    const [birthday, setBirthday] = useState(contact?.birthday);
+    const [email, setEmail] = useState(contact?.email);
+    const [address, setAddress] = useState(contact?.address);
 
-    return (
+   return (
         <div className={styles.editor_cont}>
             <header className={styles.hesder}>
                 {contact ? `Редактирование контакта ${contact.name}` : 'Добавление контакта'}

@@ -8,9 +8,9 @@ import { checkResponseError } from '../api/utils';
 const initialState: AuthState = { 
     login: '',
     password: '',
-    userName: null,
-    userId: null,
-    isLogin: false,
+    userName: 'asdf',
+    userId: 1,
+    isLogin: true,
     status: undefined,
     error: null
 };

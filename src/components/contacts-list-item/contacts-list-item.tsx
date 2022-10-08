@@ -1,22 +1,22 @@
-import { Contact } from '../../models/contact';
+import { Contact, ContactWithId as ContactWithId } from '../../models/contact';
 import styles from './contacts-list-item.module.css';
 
 type Props = {
-    contact: Contact
+    contact: Contact,
+    onClick: React.MouseEventHandler<HTMLDivElement> | undefined,
 };
 
-const ContactsListItem: React.FC<Props> = ({ contact }) => {
-console.log(contact);
+const ContactsListItem: React.FC<Props> = ({ contact, onClick }) => {
 
-    const getRandomPhoto = (): string => {
-        enum gender {'men', 'women'};
-        const random = (n: number) => Math.round(Math.random() * n);
-        return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg` ;
-    };
+    
 
+    /* const editContact: React.MouseEventHandler<HTMLDivElement> = () => {
+        onClick(contact, id);
+    }
+ */
     return (
-        <div className={styles.item_cont}>
-            <img className={styles.photo} src={getRandomPhoto()} />
+        <div className={styles.item_cont} onClick={onClick}>
+            <img className={styles.photo} src={contact.photo} />
             <p className={styles.name}>{contact.name}</p>
             <p className={styles.phone}>{contact.phone}</p>
             <p className={styles.email}>{contact.email}</p>

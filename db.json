@@ -23,7 +23,8 @@
           "name": "Guy Bond",
           "email": "sed.nunc@google.couk",
           "address": "173-8925 Integer Avenue",
-          "birthday": "26/12/2004"
+          "birthday": "26/12/2004",
+          "photo": ""
         },
         {
           "id": 1,
@@ -31,7 +32,8 @@
           "name": "Tashya Carroll",
           "email": "ultrices@aol.net",
           "address": "Ap #249-6653 Amet St.",
-          "birthday": "9/6/1988"
+          "birthday": "9/6/1988",
+          "photo": ""
         },
         {
           "id": 2,
@@ -39,7 +41,8 @@
           "name": "Lee Rodgers",
           "email": "lacus.quisque.purus@aol.org",
           "address": "790-4623 Metus. Street",
-          "birthday": "28/9/2000"
+          "birthday": "28/9/2000",
+          "photo": ""
         },
         {
           "id": 3,
@@ -47,7 +50,8 @@
           "name": "Alma Becker",
           "email": "blandit.congue@aol.net",
           "address": "Ap #307-1009 Suspendisse Rd.",
-          "birthday": "30/7/1992"
+          "birthday": "30/7/1992",
+          "photo": ""
         },
         {
           "id": 4,
@@ -55,7 +59,8 @@
           "name": "Ima Malone",
           "email": "in@icloud.net",
           "address": "Ap #237-2037 Taciti Rd.",
-          "birthday": "14/1/1990"
+          "birthday": "14/1/1990",
+          "photo": ""
         },
         {
           "id": 5,
@@ -63,7 +68,8 @@
           "name": "Alexa Kaufman",
           "email": "aliquet@yahoo.edu",
           "address": "986-1316 Vivamus St.",
-          "birthday": "23/5/1998"
+          "birthday": "23/5/1998",
+          "photo": ""
         },
         {
           "id": 6,
@@ -71,7 +77,8 @@
           "name": "Geraldine Oneal",
           "email": "aenean.gravida@google.edu",
           "address": "6402 Ut, St.",
-          "birthday": "22/2/2001"
+          "birthday": "22/2/2001",
+          "photo": ""
         },
         {
           "id": 7,
@@ -79,7 +86,8 @@
           "name": "Quinn Puckett",
           "email": "sapien.imperdiet@protonmail.com",
           "address": "591-6646 Vulputate, St.",
-          "birthday": "30/12/1997"
+          "birthday": "30/12/1997",
+          "photo": ""
         },
         {
           "id": 8,
@@ -87,7 +95,8 @@
           "name": "Randall Vazquez",
           "email": "donec.tempus@icloud.couk",
           "address": "409-7777 Volutpat St.",
-          "birthday": "5/5/1968"
+          "birthday": "5/5/1968",
+          "photo": ""
         },
         {
           "id": 9,
@@ -95,7 +104,8 @@
           "name": "Cheyenne Chaney",
           "email": "risus.varius@protonmail.edu",
           "address": "957-8539 A, Street",
-          "birthday": "24/9/1989"
+          "birthday": "24/9/1989",
+          "photo": ""
         }
       ]
     },

@@ -3,10 +3,11 @@ export type Contact = {
     email: string,
     phone: string,
     address: string,
-    birthday: string
+    birthday: string,
+    photo: string
 };
 
-export type ContactWithIndex = {
-    index: number,
+export type ContactWithId = {
+    id: number,
     contact: Contact
 }
