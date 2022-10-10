@@ -8,6 +8,7 @@ import { getContacts, selectContactsState } from '../../state/contactsSlice';
 import ContactsListItem from '../../components/contacts-list-item/contacts-list-item';
 import Popup from '../../components/popup/popup';
 import ContactEditor from '../../components/contact-editor/contact-editor';
+import { disableScroll, enableScroll } from '../../utils';
 
 
 const ContactsList = () => {
@@ -22,7 +23,7 @@ const ContactsList = () => {
     const [popupContactId, setPopupContactId] = useState<number | null>(null);
 
     const showPopup = (contact: Contact, id: number) => {
-        document.body.style.position = 'fixed'
+        disableScroll();
         setPopupContact(contact);
         setPopupContactId(id);
         setPopupVisible(true);
@@ -30,7 +31,10 @@ const ContactsList = () => {
 
     const hidePopup = () => {
         setPopupVisible(false);
-    }
+        setPopupContact(null);
+        setPopupContactId(null);
+        enableScroll();
+    };
 
     useEffect(() => {
         !isLogin ? navigate('/login') : dispatch(getContacts(userId!));
@@ -38,15 +42,19 @@ const ContactsList = () => {
 
     return (
         <div className={styles.list_cont}>
-            <Popup visible={popupVisible} onClose={() => {hidePopup()}}>
+            <Popup visible={popupVisible} onClose={() => { hidePopup() }}>
                 <ContactEditor contact={popupContact} onSubmit={() => { }} />
             </Popup>
-            <h1>{`Здравствуйте ${userName}`}</h1>
-            {
-                list.length
-                    ? list.map((contact, id) => <ContactsListItem key={id} contact={contact} onClick={() => showPopup(contact, id)} />)
-                    : <p className={styles.error}>У вас пока нет контактов.</p>
-            }
+            <header className={styles.header}>
+                <h1>{`Здравствуйте ${userName}`}</h1>
+            </header>
+            <div className={styles.list}>
+                {
+                    list.length
+                        ? list.map((contact, id) => <ContactsListItem key={id} contact={contact} onClick={() => showPopup(contact, id)} />)
+                        : <p className={styles.error}>У вас пока нет контактов.</p>
+                }
+            </div>
         </div>
     )
 };

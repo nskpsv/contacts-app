@@ -4,16 +4,15 @@ import styles from './popup.module.css';
 type Props = {
     children: React.ReactNode,
     visible: boolean,
-    onClose: Function
+    onClose: MouseEventHandler<HTMLDivElement>
 }
 
 const Popup: React.FC<Props> = ({ children, visible, onClose }) => {
 
     const popup = useRef<HTMLDivElement>(null);
-    const close: MouseEventHandler<HTMLDivElement> = (e) => {
-        e.stopPropagation();
+    /* const close: MouseEventHandler<HTMLDivElement> = (e) => {
         onClose();
-    };
+    }; */
 
     useEffect(() => {
         if (popup.current) {
@@ -24,7 +23,7 @@ const Popup: React.FC<Props> = ({ children, visible, onClose }) => {
     }, [visible])
 
     return (
-        <div className={styles.popup_cont} onClick={close} ref={popup}>
+        <div className={styles.popup_cont} onClick={onClose} ref={popup}>
             {children}
         </div>
     )
