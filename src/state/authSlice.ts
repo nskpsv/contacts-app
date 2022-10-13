@@ -8,7 +8,8 @@ import { checkResponseError } from '../api/utils';
 const initialState: AuthState = { 
     login: '',
     password: '',
-    userName: 'asdf',
+    userName: 'Пользователь Тестович',
+    userPhoto: 'https://randomuser.me/api/portraits/men/50.jpg',
     userId: 1,
     isLogin: true,
     status: undefined,
@@ -69,6 +70,7 @@ export const authSlice = createSlice({
 
             state.userName = user.name;
             state.userId = user.id;
+            state.userPhoto = user.photo;
             state.isLogin = true;
             state.login = '';
             state.password = '';
@@ -91,6 +93,7 @@ export const selectStatus = (state: RootState) => state.auth.status;
 export const selectLogin = (state: RootState) => state.auth.login;
 export const selectPassword = (state: RootState) => state.auth.password;
 export const selectUserId = (state: RootState) => state.auth.userId;
+export const selectUserPhoto = (state: RootState) => state.auth.userPhoto;
 export const selectAuthState = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

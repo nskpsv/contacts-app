@@ -9,6 +9,7 @@ import ContactsListItem from '../../components/contacts-list-item/contacts-list-
 import Popup from '../../components/popup/popup';
 import ContactEditor from '../../components/contact-editor/contact-editor';
 import { disableScroll, enableScroll } from '../../utils';
+import Header from '../../components/header/header';
 
 
 const ContactsList = () => {
@@ -45,9 +46,7 @@ const ContactsList = () => {
             <Popup visible={popupVisible} onClose={() => { hidePopup() }}>
                 <ContactEditor contact={popupContact} onSubmit={() => { }} />
             </Popup>
-            <header className={styles.header}>
-                <h1>{`Здравствуйте ${userName}`}</h1>
-            </header>
+            <Header />
             <div className={styles.list}>
                 {
                     list.length

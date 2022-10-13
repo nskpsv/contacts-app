@@ -1,4 +1,32 @@
 .item_cont {
-    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+    display: flex;
     cursor: pointer;
+    overflow: hidden;
+    height: 170px;
+}
+
+.photo {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    width: 170px;
+}
+
+.photo__image {
+    width: 100%;
+}
+
+.user_data {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.user_data__label {
+    font-size: 12px;
+    color: grey;
+}
+
+.user_data__value {
+    font-size: 15px;
 }

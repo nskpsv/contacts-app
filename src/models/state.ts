@@ -6,6 +6,7 @@ export type AuthState = {
     login: string,
     password: string,
     userName: string | null,
+    userPhoto: string,
     userId: number | null,
     isLogin: boolean,
     status: FetchStatus | undefined,

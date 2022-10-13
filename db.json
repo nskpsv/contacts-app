@@ -4,13 +4,15 @@
       "id": 1,
       "name": "Пользователь Тестович",
       "login": "test",
-      "password": "test"
+      "password": "test",
+      "photo": "https://randomuser.me/api/portraits/men/50.jpg"
     },
     {
       "id": 2,
       "name": "Пользователь2 Тестович2",
       "login": "test2",
-      "password": "test2"
+      "password": "test2",
+      "photo": "https://randomuser.me/api/portraits/women/50.jpg"
     }
   ],
   "contacts": [

@@ -8,20 +8,33 @@ type Props = {
 
 const ContactsListItem: React.FC<Props> = ({ contact, onClick }) => {
 
-    
-
-    /* const editContact: React.MouseEventHandler<HTMLDivElement> = () => {
-        onClick(contact, id);
-    }
- */
     return (
         <div className={styles.item_cont} onClick={onClick}>
-            <img className={styles.photo} src={contact.photo} />
-            <p className={styles.name}>{contact.name}</p>
-            <p className={styles.phone}>{contact.phone}</p>
-            <p className={styles.email}>{contact.email}</p>
-            <p className={styles.birthday}>{contact.birthday}</p>
-            <p className={styles.address}>{contact.address}</p>
+            <div className={styles.photo}>
+                <img className={styles.photo__image} src={contact.photo} />
+            </div>
+            <div className={styles.user_data}>
+                <label className={styles.user_data__label}>
+                    Имя
+                </label>
+                <p className={styles.user_data__value}>{contact.name}</p>
+                <label className={styles.user_data__label}>
+                    Телефон
+                </label>
+                <p className={styles.user_data__value}>{contact.phone}</p>
+                <label className={styles.user_data__label}>
+                    Email
+                </label>
+                <p className={styles.user_data__value}>{contact.email}</p>
+                <label className={styles.user_data__label}>
+                    День рождения
+                </label>
+                <p className={styles.user_data__value}>{contact.birthday}</p>
+                <label className={styles.user_data__label}>
+                    Адрес
+                </label>
+                <p className={styles.user_data__value}>{contact.address}</p>
+            </div>
         </div>
     )
 };
