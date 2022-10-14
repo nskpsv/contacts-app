@@ -9,7 +9,7 @@ const initialState: ContactsListState = {
     status: undefined,
     list: [],
     error: null
-};
+};  
 
 export const getContacts = createAsyncThunk<Contact[], number>(
     'contacts/getContacts',

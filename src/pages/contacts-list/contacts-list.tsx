@@ -13,7 +13,6 @@ import Header from '../../components/header/header';
 
 
 const ContactsList = () => {
-
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { userName, userId, isLogin } = useAppSelector(selectAuthState);
@@ -26,14 +25,10 @@ const ContactsList = () => {
     const showPopup = (contact: Contact, id: number) => {
         disableScroll();
         setPopupContact(contact);
-        setPopupContactId(id);
-        setPopupVisible(true);
     };
 
     const hidePopup = () => {
-        setPopupVisible(false);
         setPopupContact(null);
-        setPopupContactId(null);
         enableScroll();
     };
 
@@ -43,7 +38,7 @@ const ContactsList = () => {
 
     return (
         <div className={styles.list_cont}>
-            <Popup visible={popupVisible} onClose={() => { hidePopup() }}>
+            <Popup visible={!!contact} onClose={() => { hidePopup() }}>
                 <ContactEditor contact={popupContact} onSubmit={() => { }} />
             </Popup>
             <Header />

@@ -3,27 +3,21 @@ import { Contact } from '../../models/contact';
 import styles from './contact-editor.module.css';
 
 type Props = {
-    contact: Contact | null,
+    contact: Contact,
     onSubmit: Function
 }
 
 const ContactEditor: React.FC<Props> = ({ contact }) => {
-    
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [birthday, setBirthday] = useState('');
-    const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
+    const [formData, setFormData] = useState(contact);
 
-    useEffect(() => {
-        setName(contact?.name || '');
-        setPhone(contact?.phone || '');
-        setBirthday(contact?.birthday || '');
-        setEmail(contact?.email || '');
-        setAddress(contact?.address || '');
-    }, [contact]);
+    const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...contact,
+            [e.currentTarget.name]: e.currentTarget.value,
+        });
+    }
 
-   return (
+    return (
         <div className={styles.editor_cont} onClick={(e) => e.stopPropagation()}>
             <header className={styles.hesder}>
                 {contact ? `Редактирование контакта ${contact.name}` : 'Добавление контакта'}
@@ -34,8 +28,8 @@ const ContactEditor: React.FC<Props> = ({ contact }) => {
                     type='text'
                     name='name'
                     placeholder='Имя'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={formData.name}
+                    onChange={handleChangeForm}
                     required
                     autoFocus />
                 <input
@@ -44,30 +38,30 @@ const ContactEditor: React.FC<Props> = ({ contact }) => {
                     name='phone'
                     placeholder='+7 (___) ___-__-__'
                     pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    value={formData.phone}
+                    onChange={handleChangeForm}
                     required />
                 <input
                     className={styles.form__field}
                     type='date'
                     name='birthday'
                     placeholder='День рождения'
-                    value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)} />
+                    value={formData.birthday}
+                    onChange={handleChangeForm} />
                 <input
                     className={styles.form__field}
                     type='email'
                     name='email'
                     placeholder='Email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
+                    value={formData.email}
+                    onChange={handleChangeForm} />
                 <input
                     className={styles.form__field}
                     type='text'
                     name='address'
                     placeholder='Адрес'
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)} />
+                    value={formData.address}
+                    onChange={handleChangeForm} />
                 <button type='submit'>{contact ? 'Изменить' : 'Добавить'}</button>
             </form>
         </div>
