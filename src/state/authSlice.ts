@@ -18,13 +18,16 @@ const initialState: AuthState = {
 
 export const checkUser = createAsyncThunk<User, LoginData>(
     'auth/login',
-    async ({login, password}, { rejectWithValue }) => {
-        const response = await fetch(`http://localhost:4000/user?login=${login}&password=${password}`);
+    async ({login, password}, thunkApi) => {
+        let response;
 
-       checkResponseError(response, rejectWithValue);
+        try {
+            response = await fetch(`http://localhost:4000/user?login=${login}&password=${password}`);
+        } catch (e) {
+            return thunkApi.rejectWithValue(response);
+        }
             
         const data = await response.json() as User[];
-        console.log(data[0]);
         
         return data[0] ;
     }

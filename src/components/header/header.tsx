@@ -6,13 +6,12 @@ import clearIcon from './assets/clear.png';
 import { useRef, useState } from 'react';
 
 const Header = () => {
-
     const userName = useAppSelector(selectUserName);
     const userPhoto = useAppSelector(selectUserPhoto);
     const [searchValue, setSearchValue] = useState('');
     const input = useRef<HTMLInputElement>(null);
 
-    const cleanClickHandler = () => {
+    const handlerClearSearch = () => {
         if (searchValue) {
             setSearchValue('');
         } 
@@ -38,7 +37,7 @@ const Header = () => {
                         </div>
                         <input className={styles.search__input} ref={input} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                         <div className={styles.search__icon} >
-                            <div className={`${styles.search__right_icon} ${searchValue ? null : styles['search__right_icon--hidden']}`} onClick={cleanClickHandler}>
+                            <div className={`${styles.search__right_icon} ${searchValue ? null : styles['search__right_icon--hidden']}`} onClick={handlerClearSearch}>
                                 <img className={styles.search__icon_image} src={clearIcon} />
                             </div>
                         </div>
