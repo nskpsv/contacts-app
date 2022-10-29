@@ -18,39 +18,52 @@ const ContactsList = () => {
     const dispatch = useAppDispatch();
     const { userName, userId, isLogin } = useAppSelector(selectAuthState);
     const { error, list, status } = useAppSelector(selectContactsState);
-
+ 
     const [popupVisible, setPopupVisible] = useState(false);
     const [popupContact, setPopupContact] = useState<Contact | null>(null);
-    const [popupContactId, setPopupContactId] = useState<number | null>(null);
+    const [filtredList, setFiltredList] = useState(list);
 
-    const showPopup = (contact: Contact, id: number) => {
+    const showPopup = (contact: Contact) => {
+
         disableScroll();
         setPopupContact(contact);
-        setPopupContactId(id);
         setPopupVisible(true);
     };
 
     const hidePopup = () => {
+
         setPopupVisible(false);
-        setPopupContact(null);
-        setPopupContactId(null);
+        setPopupContact(null); 
         enableScroll();
     };
 
-    useEffect(() => {
-        !isLogin ? navigate('/login') : dispatch(getContacts(userId!));
-    }, [isLogin])
+    const search = (name: string): void => {       
+        
+        name
+        ? setFiltredList(list.filter(contact => RegExp(name, 'i').test(contact.name)))
+        : setFiltredList(list)
+    }
 
+    useEffect(() => {
+
+        !isLogin ? navigate('/login') : dispatch(getContacts(userId!));
+    }, [isLogin]);
+    
+    useEffect(() => {
+
+        setFiltredList(list);
+    }, [list]);
+    
     return (
         <div className={styles.list_cont}>
-            <Popup visible={popupVisible} onClose={() => { hidePopup() }}>
+            <Popup visible={popupVisible} onClose={hidePopup}>
                 <ContactEditor contact={popupContact} onSubmit={() => { }} />
             </Popup>
-            <Header />
+            <Header onSearch={search}/>
             <div className={styles.list}>
                 {
-                    list.length
-                        ? list.map((contact, id) => <ContactsListItem key={id} contact={contact} onClick={() => showPopup(contact, id)} />)
+                    filtredList.length
+                        ? filtredList.map((contact, id) => <ContactsListItem key={id} contact={contact} onClick={() => showPopup(contact)} />)
                         : <p className={styles.error}>У вас пока нет контактов.</p>
                 }
             </div>

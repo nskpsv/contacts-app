@@ -3,21 +3,31 @@ import { useAppSelector } from '../../state/hooks';
 import styles from './header.module.css';
 import searchIcon from './assets/magnifier.png';
 import clearIcon from './assets/clear.png';
-import { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
-const Header = () => {
+type Props = {
+    onSearch: Function 
+}
+
+const Header: FC<Props> = ({ onSearch }) => {
 
     const userName = useAppSelector(selectUserName);
     const userPhoto = useAppSelector(selectUserPhoto);
     const [searchValue, setSearchValue] = useState('');
     const input = useRef<HTMLInputElement>(null);
 
-    const cleanClickHandler = () => {
-        if (searchValue) {
-            setSearchValue('');
-        } 
-        input.current?.focus()
+    const cleanHandler = () => {
+
+        setSearchValue('');
+        onSearch('');
+        input.current!.focus();
     };
+
+    const onSearchInput: React.ChangeEventHandler<HTMLInputElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setSearchValue(e.target.value);
+        onSearch(e.target.value);
+    }
 
     return (
         <>
@@ -36,9 +46,9 @@ const Header = () => {
                                 <img className={styles.search__icon_image} src={searchIcon} />
                             </div>
                         </div>
-                        <input className={styles.search__input} ref={input} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                        <input className={styles.search__input} ref={input} value={searchValue} onChange={onSearchInput} />
                         <div className={styles.search__icon} >
-                            <div className={`${styles.search__right_icon} ${searchValue ? null : styles['search__right_icon--hidden']}`} onClick={cleanClickHandler}>
+                            <div className={`${styles.search__right_icon} ${searchValue ? null : styles['search__right_icon--hidden']}`} onClick={cleanHandler}>
                                 <img className={styles.search__icon_image} src={clearIcon} />
                             </div>
                         </div>
