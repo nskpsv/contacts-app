@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Тестовое задание на вакансию Front-end Developer
+ 
+## Основное задание:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+Необходимо написать приложение личный кабинет.
+В приложении должно быть две страницы:
+1. Страница входа
+2. Страница со списком контактов
 
-## Available Scripts
+Оформление и данные для заполнения страниц на усмотрение кандидата.
 
-In the project directory, you can run:
+**Обязательно** наличие информации в readme о том, как запускать приложение. Так же необходимо указать версию **node** (узнать можно с помощью команды node -v)
 
-### `npm start`
+Для выполнения тестового задания Вы можете использовать UI-библиотеку компонентов (MUI, antd и т.д.).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Задание необходимо выполнить на **TypeScript**, без использования **any** и **ts-ignore**.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+При выполнении работы обязательно использовать стейт менеджер (redux, mobx)
 
-### `npm test`
+**Страница входа**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Для реализации авторизации можно использовать запросы с моковыми данными https://github.com/typicode/json-server.
 
-### `npm run build`
+**Страница со списком контактов**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Страница со списком контактов пользователя должна быть **доступна только после авторизации**.
+На странице со списком контактов должна быть возможность добавлять/удалять/редактировать контакты, а также желательно наличие функции поиска.
