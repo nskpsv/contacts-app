@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css';
 import Auth from './pages/auth/Auth';
-import ContactsList from './pages/contacts-list/contacts-list';
+import Contacts from './pages/contacts/contacts';
 
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<ContactsList />} />
+      <Route path='/' element={<Contacts />} />
       <Route path='login' element={<Auth />} />
     </Routes>
   )

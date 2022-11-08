@@ -1,5 +1,4 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { checkResponseError } from "../api/utils";
 import { ContactsResponse } from "../models/api";
 import { Contact } from "../models/contact";
 import { ContactsListState } from "../models/state";
@@ -13,12 +12,11 @@ const initialState: ContactsListState = {
 
 export const getContacts = createAsyncThunk<Contact[], number>(
     'contacts/getContacts',
-    async (id, { rejectWithValue }) => {
+    async (id) => {
         const response = await fetch(`http://localhost:4000/contacts?id=${id}`);
 
-        checkResponseError(response, rejectWithValue);
-
         const contacts = await response.json() as ContactsResponse[];
+        
         return contacts[0].contacts ;
     }
 ); 
@@ -47,7 +45,7 @@ export const contactsSlice = createSlice({
 
         builder.addCase(getContacts.fulfilled, (state, action) => {
             state.list = action.payload.map(contact => {
-                contact.photo = getRandomPhoto();
+                contact.photo = contact.photo || getRandomPhoto();
                 return contact;
             });
             state.status = "fulfilled";

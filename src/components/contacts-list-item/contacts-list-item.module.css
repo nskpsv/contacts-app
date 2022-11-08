@@ -36,5 +36,9 @@
 }
 
 .user_data__value {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
     font-size: 15px;
+    text-overflow: ellipsis;
 }

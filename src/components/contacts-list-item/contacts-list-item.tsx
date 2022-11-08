@@ -1,5 +1,6 @@
-import { Contact, ContactWithId as ContactWithId } from '../../models/contact';
+import { Contact } from '../../models/contact';
 import styles from './contacts-list-item.module.css';
+import { convertDate } from '../../utils';
 
 type Props = {
     contact: Contact,
@@ -29,7 +30,7 @@ const ContactsListItem: React.FC<Props> = ({ contact, onClick }) => {
                 <label className={styles.user_data__label}>
                     День рождения
                 </label>
-                <p className={styles.user_data__value}>{contact.birthday}</p>
+                <p className={styles.user_data__value}>{convertDate(contact.birthday)}</p>
                 <label className={styles.user_data__label}>
                     Адрес
                 </label>

@@ -6,8 +6,3 @@ export type Contact = {
     birthday: string,
     photo: string
 };
-
-export type ContactWithId = {
-    id: number,
-    contact: Contact
-}

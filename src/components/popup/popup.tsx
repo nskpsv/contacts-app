@@ -10,9 +10,6 @@ type Props = {
 const Popup: React.FC<Props> = ({ children, visible, onClose }) => {
 
     const popup = useRef<HTMLDivElement>(null);
-    /* const close: MouseEventHandler<HTMLDivElement> = (e) => {
-        onClose();
-    }; */
 
     useEffect(() => {
         if (popup.current) {
@@ -23,8 +20,10 @@ const Popup: React.FC<Props> = ({ children, visible, onClose }) => {
     }, [visible])
 
     return (
-        <div className={styles.popup_cont} onClick={onClose} ref={popup}>
-            {children}
+        <div className={styles.popup_container} onClick={onClose} ref={popup}>
+            <div onClick={(e) => e.stopPropagation()}>
+                {children}
+            </div>
         </div>
     )
 };

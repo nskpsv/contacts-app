@@ -16,3 +16,7 @@ root.render(
     </Provider>
   </BrowserRouter>
 );
+
+/*
+Разбивка папки models на типы и интерфейсы
+*/

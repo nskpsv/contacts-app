@@ -1,60 +1,52 @@
-import { FormEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkUser, selectAuthState, selectIsLogin, selectLogin, selectPassword, updateLogin, updatePassword } from '../../state/authSlice';
+import { checkUser, selectAuthState } from '../../state/authSlice';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import styles from './Auth.module.css';
+import LoginForm from '../../components/forms/login-form/login-form';
+import classNames from 'classnames/bind';
 
 const Auth = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { login, password, isLogin } = useAppSelector(selectAuthState);
+    const { isLogin, status, error } = useAppSelector(selectAuthState);
+    const cx = classNames.bind(styles);
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-       
-       dispatch(checkUser({login, password}));
+    const onSubmit = (login: string, password: string) => {
+        
+        dispatch(checkUser({ login, password }));
     };
-
 
     useEffect(() => {
         if (isLogin) {
-        navigate('/');
+            navigate('/');
         }
     }, [isLogin]);
-    
-/* ClassNames */
+
     return (
-        <div className={styles.auth_cont}>
-            <header className={styles.header}>
-                <h1>Auth</h1>
-            </header>
-            <main className={styles.main_cont}>
-                <form name='login' onSubmit={handleSubmit}>
-                    <label className={styles.field_label}>
-                        Логин:{' '}
-                        <input 
-                        className={styles.field}
-                        value={login}
-                        onChange={(e) => dispatch(updateLogin(e.target.value))}
-                        type='text'
-                        name='login'
-                        autoFocus />
-                    </label>
-                    <label className={styles.field_label}>
-                        Пароль:{' '}
-                        <input
-                        className={styles.field}
-                        value={password}
-                        onChange={(e) => dispatch(updatePassword(e.target.value))}
-                        type='password'
-                        name='password' />
-                    </label>
-                    <button className={styles.submit} type='submit'>Войти</button>
-                </form>
-            </main>
-        </div>
+        <>
+            
+            <div className={styles.auth_container}>
+            
+                <header className={styles.header}>
+                    <h1 className={styles.header__title}>Авторизация</h1>
+                </header>
+                    <span className={cx({error: true, 'error--visible': !!error})}>
+                        {error}
+                    </span>
+                <LoginForm onSubmit={onSubmit} isFetching={status === 'pending'}/>
+            </div>
+        </>
     )
 };
 
 export default Auth;
+
+
+/* {
+    /* status === 'pending'  true &&
+    <div className={styles.preloader}>
+        <img src={preloader} />
+    </div>
+} */
