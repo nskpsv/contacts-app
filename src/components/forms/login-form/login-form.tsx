@@ -1,63 +1,62 @@
-import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../../state/hooks';
+import { FC, FormEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import { validateForm } from './form-validator';
 import classNames from 'classnames/bind';
 import styles from './login-form.module.css';
 import preloader from '../../../resources/preloader.svg';
-import { clearError } from '../../../state/authSlice';
+import { clearError, selectRemember, setRemember } from '../../../state/authSlice';
+import { LoginFormState } from '../../../classes/login-form-state';
+import { LoginData } from '../../../models/api';
 
 type Props = {
     onSubmit: Function
     isFetching: boolean
 };
 
-export type LoginFormState = {
-    login: {
-        error: string | null
-        value: string
-    }
-    password: {
-        error: string | null
-        value: string
-    }
-};
+const LoginForm: FC<Props> = ({ onSubmit, isFetching = false }) => {
 
-const LoginForm: React.FC<Props> = ({ onSubmit, isFetching = false }) => {
-
-    const initialState: LoginFormState = {
-        login: {
-            error: null,
-            value: ''
-        },
-        password: {
-            error: null,
-            value: ''
-        }
-    };
-    const [state, setState] = useState(initialState);
+    const [state, setState] = useState(new LoginFormState());
     const dispatch = useAppDispatch();
+    const remember = useAppSelector(selectRemember);
     const cx = classNames.bind(styles);
 
-    const handleSubmit = (e: FormEvent) => {
+    const getLoginData = (): LoginData => {
+        const res = {
+            login: {
+                email: state.email.value,
+                password: state.password.value,
+            }
+        };
+        return res;
+    };
 
+    const fieldChangeHandler = (key: keyof LoginFormState, newValue: string | boolean) => {
+        setState({
+            ...state,
+            [key]: { ...state[key], value: newValue }
+        } as LoginFormState)
+    };
+
+    const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         dispatch(clearError());
-        validateForm(state, setState) && onSubmit(state.login.value, state.password.value);
+
+        validateForm(state, setState) && onSubmit(getLoginData());
     };
 
     return (
-        <form className={styles.form} name='login' onSubmit={handleSubmit}>
+        <form className={styles.form} name='email' onSubmit={submitHandler}>
             <div className={styles.field}>
-                <div className={cx({ error: true, 'error--visible': !!state.login.error })}>
-                    <span className={styles.error_message}>{state.login.error}</span>
+                <div className={cx({ error: true, 'error--visible': !!state.email.error })}>
+                    <span className={styles.error_message}>{state.email.error}</span>
                 </div>
-                <label className={styles.field__label}>Логин:</label>
                 <input
-                    className={cx({ field__input: true, 'field__input--error': !!state.login.error })}
-                    value={state.login.value}
-                    onChange={(e) => setState({ ...state, login: { ...state.login, value: e.target.value } })}
+                    className={cx({ field__input: true, 'field__input--error': !!state.email.error })}
+                    value={state.email.value}
+                    onChange={(e) => fieldChangeHandler('email', e.target.value)}
                     type='text'
-                    name='login'
+                    name='email'
+                    placeholder='Email'
                     autoFocus
                     disabled={isFetching} />
             </div>
@@ -65,14 +64,24 @@ const LoginForm: React.FC<Props> = ({ onSubmit, isFetching = false }) => {
                 <div className={cx({ error: true, 'error--visible': !!state.password.error })}>
                     <span className={styles.error_message}>{state.password.error}</span>
                 </div>
-                <label className={styles.field__label}>Пароль:</label>
                 <input
                     className={cx({ field__input: true, 'field__input--error': !!state.password.error })}
                     value={state.password.value}
-                    onChange={(e) => setState({ ...state, password: { ...state.password, value: e.target.value } })}
+                    onChange={(e) => fieldChangeHandler('password', e.target.value)}
                     type='password'
                     name='password'
+                    placeholder='Password'
                     disabled={isFetching} />
+            </div>
+            <div className={styles.checkbox}>
+                <input
+                    className={styles.checkbox__input}
+                    checked={remember}
+                    onChange={(e) => dispatch(setRemember(e.target.checked))}
+                    type='checkbox'
+                    name='remember'
+                    disabled={isFetching} />
+                <label className={styles.checkbox__label}>Запомнить</label>
             </div>
             <button className={styles.submit_button} type='submit' disabled={isFetching}>
                 {isFetching

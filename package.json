@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "serve": "json-server --watch db.json --port 4000 --delay 1000",
+    "serve": "json-server-auth db.json -r routes.json -p 4000 -d 1000",
     "dev": "concurrently --kill-others \"npm run serve\" \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server-auth": "^2.1.0"
   }
 }

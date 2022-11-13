@@ -1,4 +1,5 @@
-import { LoginFormState } from "./login-form";
+import { LoginFormState } from "../../../classes/login-form-state";
+
 
 export const validateForm = (formState: LoginFormState, setState: React.Dispatch<React.SetStateAction<LoginFormState>>): boolean => {
 
@@ -7,7 +8,7 @@ export const validateForm = (formState: LoginFormState, setState: React.Dispatch
 
     Object.keys(state).forEach(key => {
         switch (key) {
-            case 'login': {
+            case 'email': {
                 const field = state[key];
                 field.error = null;
 
@@ -32,7 +33,7 @@ export const validateForm = (formState: LoginFormState, setState: React.Dispatch
                 break;
             };
             default: {
-                state.login.error = null;
+                state.email.error = null;
                 state.password.error = null;
             };
         };

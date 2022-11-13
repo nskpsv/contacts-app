@@ -1,11 +1,22 @@
-import { Contact } from "./contact";
+import { Contact } from './contact';
+import { User } from './user';
 
 export type LoginData = {
-    login: string,
-    password: string
+    login?: {
+        email: string,
+        password: string
+    }
+    grantAccess?: {
+       accessToken: string,
+        id: number
+    }
 };
 
-export type ContactsResponse = {
-    id: number,
-    contacts: Contact[]
+export type LoginResponse = {
+   accessToken: string,
+    user: User
+};
+
+export type APIError = {
+    message: string
 };

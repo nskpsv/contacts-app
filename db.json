@@ -1,209 +1,220 @@
 {
-  "user": [
+  "users": [
     {
-      "id": 1,
+      "email": "test@mail.ru",
+      "password": "$2a$10$jeJEyos.0QLbHKM5x39lKOl7usrmoILWXL2py8bbOwcfhUScqUJsu",
       "name": "Пользователь Тестович",
-      "login": "test",
-      "password": "test",
-      "photo": "https://randomuser.me/api/portraits/men/50.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/43.jpg",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Пользователь2 Тестович2",
-      "login": "test2",
-      "password": "test2",
-      "photo": "https://randomuser.me/api/portraits/women/50.jpg"
+      "email": "test2@mail.ru",
+      "password": "$2a$10$MBQtx3nJXp6sUWErambr6OAhWeW3Vvsn187ECP858mmdtFPONxuHi",
+      "name": "Пользователь Тестович2",
+      "photo": "https://randomuser.me/api/portraits/men/40.jpg",
+      "id": 2
     }
   ],
   "contacts": [
     {
-      "id": 1,
-      "contacts": [
-        {
-          "id": 0,
-          "phone": "+7 (947) 262-12-99",
-          "name": "Guy Bond",
-          "email": "sed.nunc@google.couk",
-          "address": "173-8925 Integer Avenue",
-          "birthday": "2004-12-26",
-          "photo": ""
-        },
-        {
-          "id": 1,
-          "phone": "+7 (983) 550-42-18",
-          "name": "Tashya Carroll",
-          "email": "ultrices@aol.net",
-          "address": "Ap #249-6653 Amet St.",
-          "birthday": "1988-09-06",
-          "photo": ""
-        },
-        {
-          "id": 2,
-          "phone": "+7 (978) 518-60-71",
-          "name": "Lee Rodgers",
-          "email": "lacus.quisque.purus@aol.org",
-          "address": "790-4623 Metus. Street",
-          "birthday": "2000-09-28",
-          "photo": ""
-        },
-        {
-          "id": 3,
-          "phone": "+7 (901) 263-20-26",
-          "name": "Alma Becker",
-          "email": "blandit.congue@aol.net",
-          "address": "Ap #307-1009 Suspendisse Rd.",
-          "birthday": "1992-07-30",
-          "photo": ""
-        },
-        {
-          "id": 4,
-          "phone": "+7 (963) 578-29-74",
-          "name": "Ima Malone",
-          "email": "in@icloud.net",
-          "address": "Ap #237-2037 Taciti Rd.",
-          "birthday": "1990-01-14",
-          "photo": ""
-        },
-        {
-          "id": 5,
-          "phone": "+7 (937) 794-44-88",
-          "name": "Alexa Kaufman",
-          "email": "aliquet@yahoo.edu",
-          "address": "986-1316 Vivamus St.",
-          "birthday": "1998-05-23",
-          "photo": ""
-        },
-        {
-          "id": 6,
-          "phone": "+7 (931) 866-84-56",
-          "name": "Geraldine Oneal",
-          "email": "aenean.gravida@google.edu",
-          "address": "6402 Ut, St.",
-          "birthday": "2001-02-22",
-          "photo": ""
-        },
-        {
-          "id": 7,
-          "phone": "+7 (988) 851-52-39",
-          "name": "Quinn Puckett",
-          "email": "sapien.imperdiet@protonmail.com",
-          "address": "591-6646 Vulputate, St.",
-          "birthday": "1997-12-30",
-          "photo": ""
-        },
-        {
-          "id": 8,
-          "phone": "+7 (901) 333-26-31",
-          "name": "Randall Vazquez",
-          "email": "donec.tempus@icloud.couk",
-          "address": "409-7777 Volutpat St.",
-          "birthday": "1968-05-05",
-          "photo": ""
-        },
-        {
-          "id": 9,
-          "phone": "+7 (959) 162-47-88",
-          "name": "Cheyenne Chaney",
-          "email": "risus.varius@protonmail.edu",
-          "address": "957-8539 A, Street",
-          "birthday": "1989-09-24",
-          "photo": ""
-        },
-        {
-          "id": 10,
-          "phone": "+7 (950) 262-55-99",
-          "name": "Gucci Band",
-          "email": "Bang-band@google.couk",
-          "address": "8925 Integer Avenue",
-          "birthday": "2000-10-26",
-          "photo": ""
-        },
-        {
-          "id": 11,
-          "phone": "+7 (982) 555-42-18",
-          "name": "Tash Roll",
-          "email": "Rocknroll@aol.net",
-          "address": "Ap #249 Amet St.",
-          "birthday": "1988-09-06",
-          "photo": ""
-        },
-        {
-          "id": 12,
-          "phone": "+7 (978) 319-60-70",
-          "name": "Leezy Rooge",
-          "email": "Quisque.purus@aol.org",
-          "address": "4623 Metus. Street",
-          "birthday": "2002-09-12",
-          "photo": ""
-        },
-        {
-          "id": 13,
-          "phone": "+7 (901) 263-45-82",
-          "name": "Alf Bechzke",
-          "email": "alfafl@aol.net",
-          "address": "1009 Suspendisse Rd.",
-          "birthday": "1998-07-23",
-          "photo": ""
-        },
-        {
-          "id": 14,
-          "phone": "+7 (963) 578-13-14",
-          "name": "Imax Manoe",
-          "email": "indi@icloud.net",
-          "address": "Ap #237 Taciti Rd.",
-          "birthday": "1999-01-14",
-          "photo": ""
-        },
-        {
-          "id": 15,
-          "phone": "+7 (937) 794-56-88",
-          "name": "Alex Man",
-          "email": "Alexman@yahoo.edu",
-          "address": "1316 Vivamus St.",
-          "birthday": "1998-05-20",
-          "photo": ""
-        },
-        {
-          "id": 16,
-          "phone": "+7 (931) 866-80-33",
-          "name": "Gerald Neal",
-          "email": "Neal-G@google.edu",
-          "address": "6402 Ut, St.",
-          "birthday": "1999-12-22",
-          "photo": ""
-        },
-        {
-          "id": 17,
-          "phone": "+7 (988) 851-90-39",
-          "name": "Quinnee Pockee",
-          "email": "Quinnee@protonmail.com",
-          "address": "Vulputate, St.",
-          "birthday": "1990-11-10",
-          "photo": ""
-        },
-        {
-          "id": 18,
-          "phone": "+7 (901) 333-30-31",
-          "name": "Ronald Vazez",
-          "email": "donecs@icloud.couk",
-          "address": "409-7700 Volutpat St.",
-          "birthday": "1968-05-15",
-          "photo": ""
-        },
-        {
-          "id": 19,
-          "phone": "+7 (959) 162-47-80",
-          "name": "Chey Chan",
-          "email": "varius@protonmail.edu",
-          "address": "957-8539 B, Street",
-          "birthday": "1989-10-24",
-          "photo": ""
-        }
-      ]
+      "userId": 1,
+      "id": 0,
+      "phone": "+7 (947) 262-12-99",
+      "name": "Guy Bond",
+      "email": "sed.nunc@google.couk",
+      "address": "173-8925 Integer Avenue",
+      "birthday": "2004-12-26",
+      "photo": ""
     },
     {
+      "userId": 1,
+      "id": 1,
+      "phone": "+7 (983) 550-42-18",
+      "name": "Tashya Carroll",
+      "email": "ultrices@aol.net",
+      "address": "Ap #249-6653 Amet St.",
+      "birthday": "1988-09-06",
+      "photo": ""
+    },
+    {
+      "userId": 1,
       "id": 2,
-      "contacts": []
+      "phone": "+7 (978) 518-60-71",
+      "name": "Lee Rodgers",
+      "email": "lacus.quisque.purus@aol.org",
+      "address": "790-4623 Metus. Street",
+      "birthday": "2000-09-28",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "phone": "+7 (901) 263-20-26",
+      "name": "Alma Becker",
+      "email": "blandit.congue@aol.net",
+      "address": "Ap #307-1009 Suspendisse Rd.",
+      "birthday": "1992-07-30",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 4,
+      "phone": "+7 (963) 578-29-74",
+      "name": "Ima Malone",
+      "email": "in@icloud.net",
+      "address": "Ap #237-2037 Taciti Rd.",
+      "birthday": "1990-01-14",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 5,
+      "phone": "+7 (937) 794-44-88",
+      "name": "Alexa Kaufman",
+      "email": "aliquet@yahoo.edu",
+      "address": "986-1316 Vivamus St.",
+      "birthday": "1998-05-23",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 6,
+      "phone": "+7 (931) 866-84-56",
+      "name": "Geraldine Oneal",
+      "email": "aenean.gravida@google.edu",
+      "address": "6402 Ut, St.",
+      "birthday": "2001-02-22",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 7,
+      "phone": "+7 (988) 851-52-39",
+      "name": "Quinn Puckett",
+      "email": "sapien.imperdiet@protonmail.com",
+      "address": "591-6646 Vulputate, St.",
+      "birthday": "1997-12-30",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 8,
+      "phone": "+7 (901) 333-26-31",
+      "name": "Randall Vazquez",
+      "email": "donec.tempus@icloud.couk",
+      "address": "409-7777 Volutpat St.",
+      "birthday": "1968-05-05",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 9,
+      "phone": "+7 (959) 162-47-88",
+      "name": "Cheyenne Chaney",
+      "email": "risus.varius@protonmail.edu",
+      "address": "957-8539 A, Street",
+      "birthday": "1989-09-24",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 10,
+      "phone": "+7 (950) 262-55-99",
+      "name": "Gucci Band",
+      "email": "Bang-band@google.couk",
+      "address": "8925 Integer Avenue",
+      "birthday": "2000-10-26",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 11,
+      "phone": "+7 (982) 555-42-18",
+      "name": "Tash Roll",
+      "email": "Rocknroll@aol.net",
+      "address": "Ap #249 Amet St.",
+      "birthday": "1988-09-06",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 12,
+      "phone": "+7 (978) 319-60-70",
+      "name": "Leezy Rooge",
+      "email": "Quisque.purus@aol.org",
+      "address": "4623 Metus. Street",
+      "birthday": "2002-09-12",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 13,
+      "phone": "+7 (901) 263-45-82",
+      "name": "Alf Bechzke",
+      "email": "alfafl@aol.net",
+      "address": "1009 Suspendisse Rd.",
+      "birthday": "1998-07-23",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 14,
+      "phone": "+7 (963) 578-13-14",
+      "name": "Imax Manoe",
+      "email": "indi@icloud.net",
+      "address": "Ap #237 Taciti Rd.",
+      "birthday": "1999-01-14",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 15,
+      "phone": "+7 (937) 794-56-88",
+      "name": "Alex Man",
+      "email": "Alexman@yahoo.edu",
+      "address": "1316 Vivamus St.",
+      "birthday": "1998-05-20",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 16,
+      "phone": "+7 (931) 866-80-33",
+      "name": "Gerald Neal",
+      "email": "Neal-G@google.edu",
+      "address": "6402 Ut, St.",
+      "birthday": "1999-12-22",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 17,
+      "phone": "+7 (988) 851-90-39",
+      "name": "Quinnee Pockee",
+      "email": "Quinnee@protonmail.com",
+      "address": "Vulputate, St.",
+      "birthday": "1990-11-10",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 18,
+      "phone": "+7 (901) 333-30-31",
+      "name": "Ronald Vazez",
+      "email": "donecs@icloud.couk",
+      "address": "409-7700 Volutpat St.",
+      "birthday": "1968-05-15",
+      "photo": ""
+    },
+    {
+      "userId": 1,
+      "id": 19,
+      "phone": "+7 (959) 162-47-80",
+      "name": "Chey Chan",
+      "email": "varius@protonmail.edu",
+      "address": "957-8539 B, Street",
+      "birthday": "1989-10-24",
+      "photo": ""
     }
   ]
 }

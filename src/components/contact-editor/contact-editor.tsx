@@ -3,16 +3,17 @@ import ContactForm from '../forms/contact-form/contact-form'
 import styles from './contact-editor.module.css';
 
 type Props = {
-    contact: Contact | null,
+    contact?: Contact | null,
     onCancel: Function
 };
 
-const ContactEditor: React.FC<Props> = ({ contact, onCancel }) => {
+const ContactEditor: React.FC<Props> = ({ contact = null, onCancel }) => {
     
-    const onSubmit = (contact: Contact) => {
-
+    const onSubmit = (data: Contact) => {  
+        contact
+        ? 
     }
-
+    
     return (
         <div className={styles.editor_container}>
             <header className={styles.header}>

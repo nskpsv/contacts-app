@@ -1,21 +1,25 @@
 import { Contact } from "../models/contact";
 import { ContactObj } from "./contact";
-import type { Field, FormState } from '../models/state';
+import type { Field } from '../models/form';
 
-
-export class ContactFormState implements FormState {
-
-    [key: string]: Field;
+export class ContactFormState {
+   
+    address: Field
+    birthday: Field
+    email: Field
+    name: Field
+    phone: Field
+    photo: Field
 
     constructor(contact: Contact = new ContactObj()) {
-        Object.keys(contact)
-            .forEach(key => {
-                this[key] = {
-                    value: contact[key as keyof Contact],
-                    error: null
-                }
-            });
+        console.log('ContactObj constructor');        
+        console.log(contact);
+        
+        this.address = {value: contact.address, error: null};
+        this.birthday = {value: contact.birthday, error: null};
+        this.email = {value: contact.email, error: null};
+        this.name = {value: contact.name, error: null};
+        this.phone = {value: contact.phone, error: null};
+        this.photo = {value: contact.photo, error: null};
     };
 };
-
-export default ContactFormState;

@@ -6,27 +6,32 @@ import Header from '../../components/header/header';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
-import { selectAuthState } from '../../state/authSlice';
+import { loginUser, selectAuthState } from '../../state/authSlice';
 import { Contact } from '../../models/contact';
 import { getContacts, selectContactsState } from '../../state/contactsSlice';
 import { disableScroll, enableScroll } from '../../utils';
+import { LoginData } from '../../models/api';
+import Search from '../../components/search/search';
+import Profile from '../../components/profile/profile';
+import AddContact from '../../components/add-contact/add-contact';
 
 const Contacts = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { userId, isLogin } = useAppSelector(selectAuthState);
+    const { isLogin,accessToken } = useAppSelector(selectAuthState);
     const { list, status } = useAppSelector(selectContactsState);
 
     const [popupVisible, setPopupVisible] = useState(false);
     const [popupContact, setPopupContact] = useState<Contact | null>(null);
     const [filtredList, setFiltredList] = useState<Contact[] | null>(null);
-    const [isFetching, setIsFetching] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
 
-    const showPopup = (contact: Contact) => {
+    const showPopup = (contact?: Contact) => {
+        
         disableScroll();
-        setPopupContact(contact);
-        setPopupVisible(true);        
+        setPopupContact(contact || null);
+        setPopupVisible(true);
     };
 
     const hidePopup = () => {
@@ -42,8 +47,34 @@ const Contacts = () => {
     };
 
     useEffect(() => {
-        !isLogin ? navigate('/login') : dispatch(getContacts(userId!));
+        const user = sessionStorage.getItem('user') || localStorage.getItem('user');
+
+        if (user && !isLogin) {
+
+            setIsFetching(true);
+
+            const data: LoginData = { grantAccess: { ...JSON.parse(user) } };
+
+            dispatch(loginUser(data))
+                .then((result) => {
+                    if (loginUser.rejected.match(result)) {
+                        navigate('/login');
+                    }
+                })
+        }
+        else if (!isLogin && !isFetching) {
+
+            navigate('/login');
+        }
     }, [isLogin]);
+
+    useEffect(() => {        
+        
+        if (isLogin &&accessToken) {
+
+            dispatch(getContacts(accessToken));
+        }
+    }, [isLogin, accessToken]);
 
     useEffect(() => {
 
@@ -56,10 +87,14 @@ const Contacts = () => {
 
     return (
         <div className={styles.list_cont}>
-            <Popup visible={popupVisible} onClose={hidePopup}>
+            <Popup visible={popupVisible}>
                 <ContactEditor contact={popupContact} onCancel={hidePopup} />
             </Popup>
-            <Header onSearch={searchContact} />
+            <Header>
+                <Profile />
+                <AddContact onClick={showPopup} />
+                <Search onSearch={searchContact} />
+            </Header>
             <ContactsList list={filtredList || []} onItemClick={showPopup} isFetching={isFetching} />
         </div>
     )

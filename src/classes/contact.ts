@@ -8,8 +8,10 @@ export class ContactObj implements Contact {
     address: string;
     birthday: string;
     photo: string;
+    id?: number | undefined;
+    userId: number | null;
 
-    constructor(name = '', email = '', phone = '', address = '', birthday = '', photo = '') {
+    constructor(name = '', email = '', phone = '', address = '', birthday = '', photo = '', userId: number | null = null) {
         
     this.name = name;
     this.email = email;
@@ -17,5 +19,7 @@ export class ContactObj implements Contact {
     this.address = address;
     this.birthday = birthday;
     this.photo = photo;
+    this.userId = userId;
     }
+    
 };

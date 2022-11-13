@@ -7,6 +7,8 @@
     width: 200px;
     margin: 10px 0 20px;
     box-shadow: 0 0px 5px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .photo__editor {
@@ -31,8 +33,6 @@
 
 .photo__image {
     height: 100%;
-    border-radius: 5px;
-    border: 1px solid aliceblue;
 }
 
 .form {
@@ -40,10 +40,11 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 15px;
+    gap: 10px;
 }
 
 .form__field {
+    position: relative;
     display: flex;
     gap: 5px;
     margin: 0 10px;
@@ -52,13 +53,35 @@
     width: 80%;
 }
 
+.error {
+    opacity: 0;
+    font-size: 11px;
+    padding: 2px 5px;
+    position: absolute;
+    bottom: -17px;
+    right: 0;
+    color: darkred;
+
+    transition: opacity .3s ease-in-out;
+}
+
+.error--visible {
+    opacity: 100;
+}
+
 .form__input {
     padding: 1px 5px;
-    border: none;
-    line-height: 1.5rem;
+    line-height: 1.1rem;
     border-radius: 3px;
     box-shadow: 0 0 3px;
     cursor: text;
+    border: 1px solid white;
+
+    transition: border .3s ease-in-out;
+}
+
+.form__input--error {
+    border: 1px solid darkred;
 }
 
 .form__input::-webkit-calendar-picker-indicator {

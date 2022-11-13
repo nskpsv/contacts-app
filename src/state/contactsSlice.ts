@@ -1,7 +1,8 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ContactsResponse } from "../models/api";
 import { Contact } from "../models/contact";
 import { ContactsListState } from "../models/state";
+import { selectUserId } from "./authSlice";
+import { useAppSelector } from "./hooks";
 import { RootState } from "./store";
 
 const initialState: ContactsListState = {
@@ -9,17 +10,6 @@ const initialState: ContactsListState = {
     list: [],
     error: null
 };
-
-export const getContacts = createAsyncThunk<Contact[], number>(
-    'contacts/getContacts',
-    async (id) => {
-        const response = await fetch(`http://localhost:4000/contacts?id=${id}`);
-
-        const contacts = await response.json() as ContactsResponse[];
-        
-        return contacts[0].contacts ;
-    }
-); 
 
 const isError = (action: AnyAction) => {
     return action.type.endsWith('rejected');
@@ -32,6 +22,30 @@ const getRandomPhoto = (): string => {
     return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg` ;
 };
 
+export const getContacts = createAsyncThunk<Contact[], string>(
+    'contacts/getContacts',
+    async (token) => {
+        const response = await fetch(`http://localhost:4000/contacts`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const contacts = await response.json() as Contact[];
+        
+        return contacts ;
+    }
+); 
+
+export const updateContact = createAsyncThunk<Contact, Contact>(
+    'contacts/updateContact',
+    async (contact) => {
+        const id = useAppSelector(selectUserId);
+
+        const response = await fetch(`http://localhost:4000/contacts/${id}/`)
+    }
+) 
+
 export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
@@ -41,19 +55,23 @@ export const contactsSlice = createSlice({
         builder.addCase(getContacts.pending, (state) => {
             state.status = "pending";
             state.error = null;
+
         });
 
         builder.addCase(getContacts.fulfilled, (state, action) => {
+
             state.list = action.payload.map(contact => {
                 contact.photo = contact.photo || getRandomPhoto();
                 return contact;
             });
+
             state.status = "fulfilled";
         });
 
         builder.addMatcher(isError, (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.status = 'rejected';
+            state.list = [];
         });
     }
 });

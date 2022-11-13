@@ -4,5 +4,7 @@ export type Contact = {
     phone: string,
     address: string,
     birthday: string,
-    photo: string
+    photo: string,
+    id?: number,
+    userId: number | null
 };

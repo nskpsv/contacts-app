@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkUser, selectAuthState } from '../../state/authSlice';
+import { loginUser, selectAuthState } from '../../state/authSlice';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import styles from './Auth.module.css';
 import LoginForm from '../../components/forms/login-form/login-form';
 import classNames from 'classnames/bind';
+import { LoginData } from '../../models/api';
 
 const Auth = () => {
 
@@ -13,9 +14,9 @@ const Auth = () => {
     const { isLogin, status, error } = useAppSelector(selectAuthState);
     const cx = classNames.bind(styles);
 
-    const onSubmit = (login: string, password: string) => {
+    const authRequest = (data: LoginData) => {
         
-        dispatch(checkUser({ login, password }));
+        dispatch(loginUser(data));
     };
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const Auth = () => {
                     <span className={cx({error: true, 'error--visible': !!error})}>
                         {error}
                     </span>
-                <LoginForm onSubmit={onSubmit} isFetching={status === 'pending'}/>
+                <LoginForm onSubmit={authRequest} isFetching={status === 'pending'}/>
             </div>
         </>
     )

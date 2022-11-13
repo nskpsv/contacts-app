@@ -2,8 +2,12 @@ import styles from './contact-form.module.css';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { Contact } from '../../../models/contact';
 import editIco from '../../../resources/edit.svg';
-import ContactFormState from '../../../classes/contact-form-state';
+import { ContactFormState } from '../../../classes/contact-form-state';
 import validateForm from './form-validators';
+import classNames from 'classnames/bind';
+import { ContactObj } from '../../../classes/contact';
+import { useAppSelector } from '../../../state/hooks';
+import { selectUserId } from '../../../state/authSlice';
 
 type Props = {
     contact: Contact | null,
@@ -13,20 +17,43 @@ type Props = {
 
 
 
-const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = null }) => {
+const ContactForm: React.FC<Props> = ({ contact = null, onCancel = null, onSubmit = null }) => {
 
     const [state, setState] = useState<ContactFormState>(new ContactFormState());
+    const cx = classNames.bind(styles);
+
+    const fieldChangeHandler = (key: keyof ContactFormState, newValue: string) => {
+        setState({
+            ...state,
+            [key]: {
+                ...state[key],
+                value: newValue
+            }
+        } as ContactFormState)
+    };
 
     const cancelHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
         onCancel && onCancel();
     };
 
+    const getContact = (): Contact => {
+        return new ContactObj(
+            state.name.value,
+            state.email.value,
+            state.phone.value,
+            state.address.value,
+            state.birthday.value,
+            state.photo.value,
+            useAppSelector(selectUserId)
+        )
+    };
+
     const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        if (validateForm(state)) {
-            onSubmit && onSubmit();
+        if (validateForm(state, setState)) {
+            onSubmit && onSubmit(getContact());
         }
     };
 
@@ -46,17 +73,15 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = nul
                 <div className={styles.form__field}>
                     <label className={styles.form__label} htmlFor='name'>Имя</label>
                     <input
-                        className={styles.form__input}
+                        className={cx({ form__input: true, 'form__input--error': !!state.name.error })}
                         type='text'
                         name='name'
                         placeholder='Имя'
                         value={state.name.value}
-                        onChange={(e) => setState({
-                            ...state, name: {
-                                ...state.name, value: e.target.value 
-                            }
-                        })}
-                        required />
+                        onChange={(e) => fieldChangeHandler('name', e.target.value)} />
+                    <div className={cx({ error: true, 'error--visible': !!state.name.error })}>
+                        <span className={styles.error_message}>{state.name.error}</span>
+                    </div>
                 </div>
                 <div className={styles.form__field}>
                     <label className={styles.form__label} htmlFor='phone'>Телефон</label>
@@ -64,15 +89,8 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = nul
                         className={styles.form__input}
                         type='tel'
                         name='phone'
-                        placeholder='+7 (___) ___-__-__'
-                        pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
                         value={state.phone.value}
-                        onChange={(e) => setState({
-                            ...state, phone: {
-                                ...state.phone, value: e.target.value 
-                            }
-                        })}
-                        required />
+                        onChange={(e) => fieldChangeHandler('phone', e.target.value)} />
                 </div>
                 <div className={styles.form__field}>
                     <label className={styles.form__label} htmlFor='birthday'>Дата рождения</label>
@@ -83,11 +101,7 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = nul
                         name='birthday'
                         placeholder='День рождения'
                         value={state.birthday.value}
-                        onChange={(e) => setState({
-                            ...state, birthday: {
-                                ...state.birthday, value: e.target.value 
-                            }
-                        })} />
+                        onChange={(e) => fieldChangeHandler('birthday', e.target.value)} />
                 </div>
                 <div className={styles.form__field}>
                     <label className={styles.form__label} htmlFor={'email'}>Email</label>
@@ -97,11 +111,7 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = nul
                         name='email'
                         placeholder='Email'
                         value={state.email.value}
-                        onChange={(e) => setState({
-                            ...state, email: {
-                                ...state.email, value: e.target.value 
-                            }
-                        })} />
+                        onChange={(e) => fieldChangeHandler('email', e.target.value)} />
                 </div>
                 <div className={styles.form__field}>
                     <label className={styles.form__label} htmlFor='address'>Адрес</label>
@@ -111,11 +121,7 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit = nul
                         name='address'
                         placeholder='Адрес'
                         value={state.address.value}
-                        onChange={(e) => setState({
-                            ...state, address: {
-                                ...state.address, value: e.target.value 
-                            }
-                        })} />
+                        onChange={(e) => fieldChangeHandler('address', e.target.value)} />
                 </div>
                 <div className={styles.form__buttons}>
                     <button type='submit' className={styles.form__submit_button}>{contact ? 'изменить' : 'добавить'}</button>

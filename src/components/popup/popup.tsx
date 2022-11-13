@@ -1,26 +1,18 @@
 import { MouseEventHandler, useEffect, useRef } from 'react';
 import styles from './popup.module.css';
+import classNames from 'classnames/bind';
 
 type Props = {
     children: React.ReactNode,
-    visible: boolean,
-    onClose: MouseEventHandler<HTMLDivElement>
+    visible: boolean
 }
 
-const Popup: React.FC<Props> = ({ children, visible, onClose }) => {
+const Popup: React.FC<Props> = ({ children, visible }) => {
 
-    const popup = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (popup.current) {
-            visible
-                ? popup.current.classList.add(styles['popup_cont--visible'])
-                : popup.current.classList.remove(styles['popup_cont--visible'])
-        }
-    }, [visible])
+    const cx = classNames.bind(styles);
 
     return (
-        <div className={styles.popup_container} onClick={onClose} ref={popup}>
+        <div className={cx({popup_container: true, 'popup_container--visible': visible})}>
             <div onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
