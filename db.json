@@ -6,13 +6,6 @@
       "name": "Пользователь Тестович",
       "photo": "https://randomuser.me/api/portraits/men/43.jpg",
       "id": 1
-    },
-    {
-      "email": "test2@mail.ru",
-      "password": "$2a$10$MBQtx3nJXp6sUWErambr6OAhWeW3Vvsn187ECP858mmdtFPONxuHi",
-      "name": "Пользователь Тестович2",
-      "photo": "https://randomuser.me/api/portraits/men/40.jpg",
-      "id": 2
     }
   ],
   "contacts": [
