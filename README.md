@@ -29,7 +29,9 @@
 
 ### Для запуска проекта
 в окне терминала набрать команды:
-`git clone https://github.com/nskpsv/contacts-app.git`
-`cd contacts-app`
-`npm i`
-`npm run dev`
+bash `
+git clone https://github.com/nskpsv/contacts-app.git
+cd contacts-app
+npm i
+npm run dev
+```
