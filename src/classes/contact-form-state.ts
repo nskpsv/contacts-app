@@ -12,8 +12,6 @@ export class ContactFormState {
     photo: Field
 
     constructor(contact: Contact = new ContactObj()) {
-        console.log('ContactObj constructor');        
-        console.log(contact);
         
         this.address = {value: contact.address, error: null};
         this.birthday = {value: contact.birthday, error: null};

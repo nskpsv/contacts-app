@@ -20,7 +20,6 @@ export const loginUser = createAsyncThunk<LoginResponse, LoginData, {rejectValue
     'auth/loginUser', async (data, thunkAPI) => {
 
         if (data.login) {
-            
             const response = await fetch(`http://localhost:4000/login`, {
                 method: 'POST',
                 body: JSON.stringify({ email: data.login.email, password: data.login.password }),
@@ -110,9 +109,7 @@ export const authSlice = createSlice({
                        accessToken: action.payload.accessToken
                     }
                 ))
-            } else {
-                console.log(action);
-                
+            } else {                
                 sessionStorage.setItem('user', JSON.stringify(
                     {
                         id: state.id,
@@ -153,7 +150,7 @@ export const authSlice = createSlice({
 export const selectIsLogin = (state: RootState) => state.auth.isLogin;
 export const selectError = (state: RootState) => state.auth.error;
 export const selectUserName = (state: RootState) => state.auth.userName;
-export const selectStatus = (state: RootState) => state.auth.status;
+export const selectAuthStatus = (state: RootState) => state.auth.status;
 export const selectUserId = (state: RootState) => state.auth.id;
 export const selectUserPhoto = (state: RootState) => state.auth.userPhoto;
 export const selectToken = (state: RootState) => state.auth.accessToken;

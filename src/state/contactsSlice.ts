@@ -1,9 +1,9 @@
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Contact } from "../models/contact";
 import { ContactsListState } from "../models/state";
-import { selectUserId } from "./authSlice";
-import { useAppSelector } from "./hooks";
-import { RootState } from "./store";
+import { AppDispatch, RootState } from "./store";
+
+const BASE_URL = `http://localhost:4000/contacts`;
 
 const initialState: ContactsListState = {
     status: undefined,
@@ -16,69 +16,155 @@ const isError = (action: AnyAction) => {
 };
 
 const getRandomPhoto = (): string => {
-    enum gender {'men', 'women'};
+    enum gender { 'men', 'women' };
     const random = (n: number) => Math.round(Math.random() * n);
-    
-    return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg` ;
+
+    return `https://randomuser.me/api/portraits/${gender[random(1)]}/${random(90)}.jpg`;
+};
+
+const toPendingState = (state: ContactsListState) => {
+    state.status = 'pending';
+    state.error = null;
 };
 
 export const getContacts = createAsyncThunk<Contact[], string>(
     'contacts/getContacts',
-    async (token) => {
-        const response = await fetch(`http://localhost:4000/contacts`, {
+    async (accessToken) => {
+        const response = await fetch(BASE_URL, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${accessToken}`
             }
         });
 
-        const contacts = await response.json() as Contact[];
-        
-        return contacts ;
+        return await response.json() as Contact[];
     }
-); 
+);
 
-export const updateContact = createAsyncThunk<Contact, Contact>(
-    'contacts/updateContact',
-    async (contact) => {
-        const id = useAppSelector(selectUserId);
+export const createContact = createAsyncThunk<Contact, { contact: Contact, accessToken: string }, { rejectValue: string }>(
+    'contacts/createContact', async ({ contact, accessToken }, thunkAPI) => {
+        const response = await fetch(BASE_URL, {
+            method: "POST",
+            body: JSON.stringify(contact),
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            }
+        });
 
-        const response = await fetch(`http://localhost:4000/contacts/${id}/`)
+        if (!response.ok) {
+            thunkAPI.rejectWithValue(await response.json());
+        }
+
+        return await response.json();
     }
-) 
+);
+
+export const editContact = createAsyncThunk<Contact, { contact: Contact, accessToken: string }, { rejectValue: string }>(
+    'contacts/editContact', async ({ contact, accessToken }, thunkAPI) => {
+
+        const response = await fetch(BASE_URL + `/${contact.id}`, {
+            method: "PUT",
+            body: JSON.stringify(contact),
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            thunkAPI.rejectWithValue(await response.json());
+        }
+
+        return await response.json();
+    }
+);
+
+export const deleteContact = createAsyncThunk<void, { id: number, accessToken: string }, { rejectValue: string, dispatch: AppDispatch }>(
+    'contacts/deleteContact', async ({ id, accessToken }, thunkAPI) => {
+        console.log('thunk');
+
+        const response = await fetch(BASE_URL + `/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.ok) {
+            thunkAPI.dispatch(deleteListItem(id))
+        } else { thunkAPI.rejectWithValue(await response.json()) }
+    });
 
 export const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
-    reducers: {},
+    reducers: {
+        deleteListItem: (state, action: PayloadAction<number>) => {
+            console.log('reducer');
+            console.log(action);
+
+            const index = state.list.findIndex(contact => contact.id === action.payload);
+            console.log(index);
+
+            state.list.splice(index, 1);
+        }
+    },
     extraReducers: (builder) => {
 
         builder.addCase(getContacts.pending, (state) => {
-            state.status = "pending";
-            state.error = null;
-
+            toPendingState(state);
         });
 
         builder.addCase(getContacts.fulfilled, (state, action) => {
-
             state.list = action.payload.map(contact => {
                 contact.photo = contact.photo || getRandomPhoto();
                 return contact;
             });
-
+            state.list.sort((a, b) => a.name.localeCompare(b.name));
             state.status = "fulfilled";
         });
+
+        builder.addCase(createContact.pending, (state) => {
+            toPendingState(state);
+        });
+
+        builder.addCase(createContact.fulfilled, (state, action) => {
+            state.list.push(action.payload);
+            state.list.sort((a, b) => a.name.localeCompare(b.name));
+            state.status = 'fulfilled';
+        });
+
+        builder.addCase(editContact.pending, (state) => {
+            toPendingState(state);
+        });
+
+        builder.addCase(editContact.fulfilled, (state, action) => {
+            const index = state.list.findIndex(contact => contact.id === action.payload.id);
+
+            state.list.splice(index, 1, action.payload);
+            state.status = 'fulfilled';
+        });
+
+        builder.addCase(deleteContact.pending, (state) => {
+            toPendingState(state);
+        });
+
+        builder.addCase(deleteContact.fulfilled, (state) => {
+            state.status = 'fulfilled';
+        })
 
         builder.addMatcher(isError, (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.status = 'rejected';
-            state.list = [];
         });
     }
 });
 
 export const selectList = (state: RootState) => state.contacts.list;
 export const selectError = (state: RootState) => state.contacts.error;
-export const selectStatus = (state: RootState) => state.contacts.status;
+export const selectContactsStatus = (state: RootState) => state.contacts.status;
 export const selectContactsState = (state: RootState) => state.contacts;
+
+export const { deleteListItem } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

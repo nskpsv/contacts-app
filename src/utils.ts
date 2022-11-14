@@ -15,6 +15,8 @@ export const enableScroll = () => {
 
 export const convertDate = (date: string):string => {
 
+    if (!date) { return ''}
+    
     const [y, m, d] = date.split('-');
     
     enum month  {

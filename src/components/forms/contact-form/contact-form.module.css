@@ -88,29 +88,69 @@
     cursor: pointer;
 }
 
+.form__buttons {
+    width: inherit;
+    display: flex;
+    justify-content: space-evenly;
+
+}
 
 .form__submit_button {
     margin: 10px;
+    height: 25px;
+    width: 110px;
     border: none;
     border-radius: 3px;
     text-transform: uppercase;
-    padding: 5px 15px;
     background-color: #dcf08c;
     box-shadow: 0 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button img {
+    height: 100%;
 }
 
 .form__cancel_button {
     margin: 10px;
+    height: 25px;
+    width: 110px;
     border: none;
     border-radius: 3px;
     text-transform: uppercase;
-    padding: 5px 15px;
-    background-color: #f08c8c;
     box-shadow: 0 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fae676;
+}
+
+.form__delete_button {
+    margin: 10px;
+    height: 25px;
+    width: 110px;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f08c8c;
 }
 
 .form__submit_button:hover,
-.form__cancel_button:hover {
+.form__cancel_button:hover,
+.form__delete_button:hover {
     box-shadow: 1px 1px 3px;
+    cursor: pointer;
+}
+
+.form__submit_button:active,
+.form__cancel_button:active,
+.form__delete_button:active {
+    box-shadow: 0 0 3px;
     cursor: pointer;
 }

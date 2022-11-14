@@ -23,20 +23,20 @@ const Contacts = () => {
     const { list, status } = useAppSelector(selectContactsState);
 
     const [popupVisible, setPopupVisible] = useState(false);
-    const [popupContact, setPopupContact] = useState<Contact | null>(null);
+    const [popupContact, setPopupContact] = useState<Contact | undefined>(undefined);
     const [filtredList, setFiltredList] = useState<Contact[] | null>(null);
     const [isFetching, setIsFetching] = useState(false);
 
     const showPopup = (contact?: Contact) => {
         
         disableScroll();
-        setPopupContact(contact || null);
+        setPopupContact(contact || undefined);
         setPopupVisible(true);
     };
 
     const hidePopup = () => {
         setPopupVisible(false);
-        setPopupContact(null);
+        setPopupContact(undefined);
         enableScroll();
     };
 
@@ -50,7 +50,6 @@ const Contacts = () => {
         const user = sessionStorage.getItem('user') || localStorage.getItem('user');
 
         if (user && !isLogin) {
-
             setIsFetching(true);
 
             const data: LoginData = { grantAccess: { ...JSON.parse(user) } };
@@ -63,21 +62,17 @@ const Contacts = () => {
                 })
         }
         else if (!isLogin && !isFetching) {
-
             navigate('/login');
+        }        
+    }, [isLogin]);
+
+    useEffect(() => {                
+        if (isLogin) {
+            dispatch(getContacts(accessToken!));
         }
     }, [isLogin]);
 
-    useEffect(() => {        
-        
-        if (isLogin &&accessToken) {
-
-            dispatch(getContacts(accessToken));
-        }
-    }, [isLogin, accessToken]);
-
     useEffect(() => {
-
         setFiltredList(list);
 
         (status === 'pending') || (!filtredList)

@@ -5,37 +5,30 @@ import editIco from '../../../resources/edit.svg';
 import { ContactFormState } from '../../../classes/contact-form-state';
 import validateForm from './form-validators';
 import classNames from 'classnames/bind';
+import preloader from '../../../resources/preloader.svg';
 import { ContactObj } from '../../../classes/contact';
 import { useAppSelector } from '../../../state/hooks';
 import { selectUserId } from '../../../state/authSlice';
+import { selectContactsStatus } from '../../../state/contactsSlice';
 
 type Props = {
-    contact: Contact | null,
+    contact?: Contact,
     onCancel?: Function,
+    onDelete?: Function,
     onSubmit: Function
 };
 
 
 
-const ContactForm: React.FC<Props> = ({ contact = null, onCancel = null, onSubmit = null }) => {
+const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit, onDelete = null }) => {
 
-    const [state, setState] = useState<ContactFormState>(new ContactFormState());
+    const [state, setState] = useState(new ContactFormState());
+    const [submitting, setSubmitting] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const userId = useAppSelector(selectUserId);
+    const status = useAppSelector(selectContactsStatus);
+
     const cx = classNames.bind(styles);
-
-    const fieldChangeHandler = (key: keyof ContactFormState, newValue: string) => {
-        setState({
-            ...state,
-            [key]: {
-                ...state[key],
-                value: newValue
-            }
-        } as ContactFormState)
-    };
-
-    const cancelHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
-        e.preventDefault();
-        onCancel && onCancel();
-    };
 
     const getContact = (): Contact => {
         return new ContactObj(
@@ -45,21 +38,53 @@ const ContactForm: React.FC<Props> = ({ contact = null, onCancel = null, onSubmi
             state.address.value,
             state.birthday.value,
             state.photo.value,
-            useAppSelector(selectUserId)
+            userId,
+            contact?.id
         )
+    };
+
+    const fieldChangeHandler = (key: keyof ContactFormState, newValue: string) => {
+        setState({
+            ...state,
+            [key]: {
+                ...state[key],
+                value: newValue
+            }
+        })
+    };
+
+    const cancelHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault();
+        onCancel && onCancel();
     };
 
     const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
         if (validateForm(state, setState)) {
+            setSubmitting(true);
             onSubmit && onSubmit(getContact());
         }
     };
 
+    const deleteHandler: MouseEventHandler<HTMLButtonElement> = (e) => {        
+        e.preventDefault();
+        setDeleting(true);
+        onDelete && onDelete(contact?.id);
+    };
+
     useEffect(() => {
-        contact && setState(new ContactFormState(contact));
-    }, [contact])
+        setState(new ContactFormState(contact));
+    }, [contact]);
+
+    useEffect(() => {
+        console.log(status);
+        
+        if (status === 'fulfilled' || status === 'rejected') {
+            setDeleting(false);
+            setSubmitting(false);
+        }
+    }, [status])
 
     return (
         <>
@@ -124,8 +149,25 @@ const ContactForm: React.FC<Props> = ({ contact = null, onCancel = null, onSubmi
                         onChange={(e) => fieldChangeHandler('address', e.target.value)} />
                 </div>
                 <div className={styles.form__buttons}>
-                    <button type='submit' className={styles.form__submit_button}>{contact ? 'изменить' : 'добавить'}</button>
-                    <button className={styles.form__cancel_button} onClick={cancelHandler}>отмена</button>
+                    <button type='submit' className={styles.form__submit_button} disabled={status === 'pending'}>
+                        {submitting
+                            ? <img src={preloader} />
+                            : 'Сохранить'
+                        }
+                    </button>
+                    {
+                        onCancel &&
+                        <button className={styles.form__cancel_button} onClick={cancelHandler} disabled={status === 'pending'}>отмена</button>
+                    }
+                    {
+                        onDelete && contact?.id &&
+                        <button className={styles.form__delete_button} onClick={deleteHandler} disabled={status === 'pending'}>
+                            {deleting
+                                ? <img src={preloader} />
+                                : 'удалить'
+                            }
+                        </button>
+                    }
                 </div>
             </form>
         </>

@@ -7,16 +7,12 @@ export type LoginData = {
         password: string
     }
     grantAccess?: {
-       accessToken: string,
+        accessToken: string,
         id: number
     }
 };
 
 export type LoginResponse = {
-   accessToken: string,
+    accessToken: string,
     user: User
-};
-
-export type APIError = {
-    message: string
 };

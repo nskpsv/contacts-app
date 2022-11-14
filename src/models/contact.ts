@@ -5,6 +5,6 @@ export type Contact = {
     address: string,
     birthday: string,
     photo: string,
-    id?: number,
+    id: number | undefined,
     userId: number | null
 };
