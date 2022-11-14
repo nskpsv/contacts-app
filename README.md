@@ -29,7 +29,7 @@
 
 ### Для запуска проекта
 в окне терминала набрать команды:
-bash `
+```
 git clone https://github.com/nskpsv/contacts-app.git
 cd contacts-app
 npm i
