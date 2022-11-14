@@ -35,3 +35,5 @@ cd contacts-app
 npm i
 npm run dev
 ```
+
+**Версия Node: 16.16.0**
