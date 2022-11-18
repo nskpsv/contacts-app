@@ -10,7 +10,7 @@ export const validateForm = (formState: LoginFormState, setState: React.Dispatch
         switch (key) {
             case 'email': {
                 const field = state[key];
-                field.error = null;
+                field.error = undefined;
 
                 if (field.value.length < 1) {
 
@@ -22,7 +22,7 @@ export const validateForm = (formState: LoginFormState, setState: React.Dispatch
             };
             case 'password': {
                 const field = state[key];
-                field.error = null;
+                field.error = undefined;
 
                 if (field.value.length < 1) {
 
@@ -33,8 +33,8 @@ export const validateForm = (formState: LoginFormState, setState: React.Dispatch
                 break;
             };
             default: {
-                state.email.error = null;
-                state.password.error = null;
+                state.email.error = undefined;
+                state.password.error = undefined;
             };
         };
     });

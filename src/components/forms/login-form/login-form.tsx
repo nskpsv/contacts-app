@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import { validateForm } from './form-validator';
 import classNames from 'classnames/bind';
@@ -7,6 +7,8 @@ import preloader from '../../../resources/preloader.svg';
 import { clearError, selectRemember, setRemember } from '../../../state/authSlice';
 import { LoginFormState } from '../../../classes/login-form-state';
 import { LoginData } from '../../../models/api';
+import { Field } from '../field/field';
+import { Input } from '../input/input';
 
 type Props = {
     onSubmit: Function
@@ -46,33 +48,29 @@ const LoginForm: FC<Props> = ({ onSubmit, isFetching = false }) => {
 
     return (
         <form className={styles.form} name='email' onSubmit={submitHandler}>
-            <div className={styles.field}>
-                <div className={cx({ error: true, 'error--visible': !!state.email.error })}>
-                    <span className={styles.error_message}>{state.email.error}</span>
-                </div>
-                <input
-                    className={cx({ field__input: true, 'field__input--error': !!state.email.error })}
+            <Field error={state.email.error}>
+                <Input
+                    isError={!!state.email.error}
                     value={state.email.value}
                     onChange={(e) => fieldChangeHandler('email', e.target.value)}
                     type='text'
                     name='email'
                     placeholder='Email'
                     autoFocus
-                    disabled={isFetching} />
-            </div>
-            <div className={styles.field}>
-                <div className={cx({ error: true, 'error--visible': !!state.password.error })}>
-                    <span className={styles.error_message}>{state.password.error}</span>
-                </div>
-                <input
-                    className={cx({ field__input: true, 'field__input--error': !!state.password.error })}
+                    disabled={isFetching}
+                />
+            </Field>
+            <Field error={state.password.error}>
+                <Input
+                    isError={!!state.password.error}
                     value={state.password.value}
                     onChange={(e) => fieldChangeHandler('password', e.target.value)}
                     type='password'
                     name='password'
                     placeholder='Password'
-                    disabled={isFetching} />
-            </div>
+                    disabled={isFetching}
+                />
+            </Field>
             <div className={styles.checkbox}>
                 <input
                     className={styles.checkbox__input}

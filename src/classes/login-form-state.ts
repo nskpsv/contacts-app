@@ -9,11 +9,11 @@ export class LoginFormState {
     constructor(loginData?: LoginData) {
         this.email = {
             value: loginData?.login?.email || '',
-            error: null
+            error: undefined
         };
         this.password = {
             value: loginData?.login?.password || '',
-            error: null
+            error: undefined
         };
     };
 };

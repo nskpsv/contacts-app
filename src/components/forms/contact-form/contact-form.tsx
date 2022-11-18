@@ -10,6 +10,8 @@ import { ContactObj } from '../../../classes/contact';
 import { useAppSelector } from '../../../state/hooks';
 import { selectUserId } from '../../../state/authSlice';
 import { selectContactsStatus } from '../../../state/contactsSlice';
+import { Field } from '../field/field';
+import { Input } from '../input/input';
 
 type Props = {
     contact?: Contact,
@@ -95,59 +97,48 @@ const ContactForm: React.FC<Props> = ({ contact, onCancel = null, onSubmit, onDe
                 <img className={styles.photo__image} src={state.photo.value} />
             </div>
             <form className={styles.form} name='contact' onSubmit={submitHandler}>
-                <div className={styles.form__field}>
-                    <label className={styles.form__label} htmlFor='name'>Имя</label>
-                    <input
-                        className={cx({ form__input: true, 'form__input--error': !!state.name.error })}
-                        type='text'
-                        name='name'
-                        placeholder='Имя'
-                        value={state.name.value}
-                        onChange={(e) => fieldChangeHandler('name', e.target.value)} />
-                    <div className={cx({ error: true, 'error--visible': !!state.name.error })}>
-                        <span className={styles.error_message}>{state.name.error}</span>
-                    </div>
-                </div>
-                <div className={styles.form__field}>
-                    <label className={styles.form__label} htmlFor='phone'>Телефон</label>
-                    <input
-                        className={styles.form__input}
-                        type='tel'
-                        name='phone'
-                        value={state.phone.value}
-                        onChange={(e) => fieldChangeHandler('phone', e.target.value)} />
-                </div>
-                <div className={styles.form__field}>
-                    <label className={styles.form__label} htmlFor='birthday'>Дата рождения</label>
-                    <input
-                        id={styles.date}
-                        className={styles.form__input}
-                        type='date'
-                        name='birthday'
-                        placeholder='День рождения'
-                        value={state.birthday.value}
-                        onChange={(e) => fieldChangeHandler('birthday', e.target.value)} />
-                </div>
-                <div className={styles.form__field}>
-                    <label className={styles.form__label} htmlFor={'email'}>Email</label>
-                    <input
-                        className={styles.form__input}
-                        type='email'
-                        name='email'
-                        placeholder='Email'
-                        value={state.email.value}
-                        onChange={(e) => fieldChangeHandler('email', e.target.value)} />
-                </div>
-                <div className={styles.form__field}>
-                    <label className={styles.form__label} htmlFor='address'>Адрес</label>
-                    <input
-                        className={styles.form__input}
-                        type='text'
-                        name='address'
-                        placeholder='Адрес'
-                        value={state.address.value}
-                        onChange={(e) => fieldChangeHandler('address', e.target.value)} />
-                </div>
+                <Field error={state.name.error} label='Имя' labelFor='name'>
+                    <Input
+                    isError={!!state.name.error }
+                    type='text'
+                    name='name'
+                    value={state.name.value}
+                    onChange={(e) => fieldChangeHandler('name', e.target.value)}
+                    />
+                </Field>
+                <Field label='Телефон' labelFor='phone'>
+                    <Input
+                    type='tel'
+                    name='phone'
+                    value={state.phone.value}
+                    onChange={(e) => fieldChangeHandler('phone', e.target.value)}
+                     />
+                </Field>
+                <Field label='Дата рождения' labelFor='birthday'>
+                    <Input
+                    id={styles.date}
+                    type='date'
+                    name='birthday'
+                    value={state.birthday.value}
+                    onChange={(e) => fieldChangeHandler('birthday', e.target.value)}
+                    />
+                </Field>
+                <Field label='Email' labelFor='email'>
+                    <Input
+                    type='email'
+                    name='email'
+                    value={state.email.value}
+                    onChange={(e) => fieldChangeHandler('email', e.target.value)}
+                    />
+                </Field>
+                <Field label='Адрес' labelFor='address'>
+                    <Input
+                    type='text'
+                    name='address'
+                    value={state.address.value}
+                    onChange={(e) => fieldChangeHandler('address', e.target.value)}
+                    />
+                </Field>
                 <div className={styles.form__buttons}>
                     <button type='submit' className={styles.form__submit_button} disabled={status === 'pending'}>
                         {submitting

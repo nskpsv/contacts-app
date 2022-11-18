@@ -13,11 +13,11 @@ export class ContactFormState {
 
     constructor(contact: Contact = new ContactObj()) {
         
-        this.address = {value: contact.address, error: null};
-        this.birthday = {value: contact.birthday, error: null};
-        this.email = {value: contact.email, error: null};
-        this.name = {value: contact.name, error: null};
-        this.phone = {value: contact.phone, error: null};
-        this.photo = {value: contact.photo, error: null};
+        this.address = {value: contact.address, error: undefined};
+        this.birthday = {value: contact.birthday, error: undefined};
+        this.email = {value: contact.email, error: undefined};
+        this.name = {value: contact.name, error: undefined};
+        this.phone = {value: contact.phone, error: undefined};
+        this.photo = {value: contact.photo, error: undefined};
     };
 };
