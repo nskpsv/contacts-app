@@ -37,3 +37,9 @@ npm run dev
 ```
 
 **Версия Node: 16.16.0**
+
+### Для авторизации в приложении
+```
+email: test@mail.ru
+password: test
+```
