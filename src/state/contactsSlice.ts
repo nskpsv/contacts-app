@@ -97,7 +97,9 @@ export const deleteContact = createAsyncThunk<
   { id: number; accessToken: string },
   { rejectValue: string; dispatch: AppDispatch }
 >('contacts/deleteContact', async ({ id, accessToken }, thunkAPI) => {
-  console.log('thunk');
+  
+
+
 
   const response = await fetch(BASE_URL + `/${id}`, {
     method: 'DELETE',
@@ -118,13 +120,13 @@ export const contactsSlice = createSlice({
   initialState,
   reducers: {
     deleteListItem: (state, action: PayloadAction<number>) => {
-      console.log('reducer');
-      console.log(action);
+      
+      
 
       const index = state.list.findIndex(
         (contact) => contact.id === action.payload
       );
-      console.log(index);
+      
 
       state.list.splice(index, 1);
     },
