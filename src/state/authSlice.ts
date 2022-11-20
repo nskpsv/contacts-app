@@ -3,148 +3,145 @@ import { RootState } from './store';
 import { AuthState } from '../models/state';
 import { LoginData, LoginResponse } from '../models/api';
 
-
 const initialState: AuthState = {
-    userName: '',
-    userPhoto: '',
-    id: null,
-    isLogin: false,
-    status: undefined,
-    error: null,
-    accessToken: null,
-    remember: false
+  userName: '',
+  userPhoto: '',
+  id: null,
+  isLogin: false,
+  status: undefined,
+  error: null,
+  accessToken: null,
+  remember: false,
 };
 
-export const loginUser = createAsyncThunk<LoginResponse, LoginData, {rejectValue: string}>(
+export const loginUser = createAsyncThunk<
+  LoginResponse,
+  LoginData,
+  { rejectValue: string }
+>('auth/loginUser', async (data, thunkAPI) => {
+  if (data.login) {
+    const response = await fetch(`http://localhost:4000/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.login.email,
+        password: data.login.password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    'auth/loginUser', async (data, thunkAPI) => {
-
-        if (data.login) {
-            const response = await fetch(`http://localhost:4000/login`, {
-                method: 'POST',
-                body: JSON.stringify({ email: data.login.email, password: data.login.password }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                return thunkAPI.rejectWithValue(await response.json());
-            }
-            return await response.json();
-        }
-
-        if (data.grantAccess) {
-
-            const response = await fetch(`http://localhost:4000/users/${data.grantAccess.id}`, {
-                headers: {
-                    Authorization: `Bearer ${data.grantAccess.accessToken}`
-                }
-            });
-            if (response.ok) {
-                
-                const user = await response.json();
-                return {accessToken: data.grantAccess.accessToken, user };
-            }
-            else {
-                localStorage.clear();
-                return thunkAPI.rejectWithValue(response.statusText);
-            }
-        }
+    if (!response.ok) {
+      return thunkAPI.rejectWithValue(await response.json());
     }
-);
+    return await response.json();
+  }
+
+  if (data.grantAccess) {
+    const response = await fetch(
+      `http://localhost:4000/users/${data.grantAccess.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${data.grantAccess.accessToken}`,
+        },
+      }
+    );
+    if (response.ok) {
+      const user = await response.json();
+      return { accessToken: data.grantAccess.accessToken, user };
+    } else {
+      localStorage.clear();
+      return thunkAPI.rejectWithValue(response.statusText);
+    }
+  }
+});
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-
-        clearError: (state) => {
-            state.error = null;
-        },
-
-        setRemember: (state, action: PayloadAction<boolean>) => {
-            state.remember = action.payload
-        },
-
-        logOut: (state) => {
-            state.userName = '',
-            state.userPhoto = '',
-            state.id = null,
-            state.isLogin = false,
-            state.status = undefined,
-            state.error = null,
-            state.accessToken = null,
-            state.remember = false
-
-            localStorage.clear();
-            sessionStorage.clear();
-        }
+  name: 'auth',
+  initialState,
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
     },
 
-    extraReducers: (builder) => {
+    setRemember: (state, action: PayloadAction<boolean>) => {
+      state.remember = action.payload;
+    },
 
-        builder.addCase(loginUser.pending, (state) => {
-            
-            state.status = 'pending';
-            state.error = null;
-            state.isLogin = false;
-        });
+    logOut: (state) => {
+      (state.userName = ''),
+        (state.userPhoto = ''),
+        (state.id = null),
+        (state.isLogin = false),
+        (state.status = undefined),
+        (state.error = null),
+        (state.accessToken = null),
+        (state.remember = false);
 
-        builder.addCase(loginUser.fulfilled, (state, action) => {
-            
-            const user = action.payload.user;
-            
-            state.userName = user.name;
-            state.id = user.id;
-            state.userPhoto = user.photo;
-            state.isLogin = true;
-            state.accessToken = action.payload.accessToken;
-            state.status = 'fulfilled';
+      localStorage.clear();
+      sessionStorage.clear();
+    },
+  },
 
-            if (state.remember) {
-                localStorage.setItem('user', JSON.stringify(
-                    {
-                        id: state.id,
-                       accessToken: action.payload.accessToken
-                    }
-                ))
-            } else {                
-                sessionStorage.setItem('user', JSON.stringify(
-                    {
-                        id: state.id,
-                       accessToken: action.payload.accessToken
-                    }
-                ))
-            }
-        });
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.pending, (state) => {
+      state.status = 'pending';
+      state.error = null;
+      state.isLogin = false;
+    });
 
-        builder.addCase(loginUser.rejected, (state, action) => {
-            
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      const user = action.payload.user;
 
-            state.accessToken = null;
-            state.remember = false;
-            state.id = null;
+      state.userName = user.name;
+      state.id = user.id;
+      state.userPhoto = user.photo;
+      state.isLogin = true;
+      state.accessToken = action.payload.accessToken;
+      state.status = 'fulfilled';
 
-            switch(action.payload) {
+      if (state.remember) {
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            id: state.id,
+            accessToken: action.payload.accessToken,
+          })
+        );
+      } else {
+        sessionStorage.setItem(
+          'user',
+          JSON.stringify({
+            id: state.id,
+            accessToken: action.payload.accessToken,
+          })
+        );
+      }
+    });
 
-                case 'Unauthorized' :
-                    state.error = `Время сессии истекло`;
-                    state.status = 'rejected';
-                    break;
-        
-                case 'Cannot find user' :
-                case 'Incorrect password' :
-                    state.error = `Неверный email или пароль`;
-                    state.status = 'rejected';
-                    break;
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.accessToken = null;
+      state.remember = false;
+      state.id = null;
 
-                default:
-                    state.error = `Сервер недоступен`;
-                    state.status = 'rejected';
-            }
-        });
-    }
+      switch (action.payload) {
+        case 'Unauthorized':
+          state.error = `Время сессии истекло`;
+          state.status = 'rejected';
+          break;
+
+        case 'Cannot find user':
+        case 'Incorrect password':
+          state.error = `Неверный email или пароль`;
+          state.status = 'rejected';
+          break;
+
+        default:
+          state.error = `Сервер недоступен`;
+          state.status = 'rejected';
+      }
+    });
+  },
 });
 
 export const selectIsLogin = (state: RootState) => state.auth.isLogin;

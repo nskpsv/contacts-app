@@ -16,83 +16,87 @@ import Profile from '../../components/profile/profile';
 import AddContact from '../../components/add-contact/add-contact';
 
 const Contacts = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLogin, accessToken } = useAppSelector(selectAuthState);
+  const { list, status } = useAppSelector(selectContactsState);
 
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const { isLogin,accessToken } = useAppSelector(selectAuthState);
-    const { list, status } = useAppSelector(selectContactsState);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupContact, setPopupContact] = useState<Contact | undefined>(
+    undefined
+  );
+  const [filtredList, setFiltredList] = useState<Contact[] | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
 
-    const [popupVisible, setPopupVisible] = useState(false);
-    const [popupContact, setPopupContact] = useState<Contact | undefined>(undefined);
-    const [filtredList, setFiltredList] = useState<Contact[] | null>(null);
-    const [isFetching, setIsFetching] = useState(false);
+  const showPopup = (contact?: Contact) => {
+    disableScroll();
+    setPopupContact(contact || undefined);
+    setPopupVisible(true);
+  };
 
-    const showPopup = (contact?: Contact) => {
-        
-        disableScroll();
-        setPopupContact(contact || undefined);
-        setPopupVisible(true);
-    };
+  const hidePopup = () => {
+    setPopupVisible(false);
+    setPopupContact(undefined);
+    enableScroll();
+  };
 
-    const hidePopup = () => {
-        setPopupVisible(false);
-        setPopupContact(undefined);
-        enableScroll();
-    };
+  const searchContact = (name: string): void => {
+    name
+      ? setFiltredList(
+          list.filter((contact) => RegExp(name, 'i').test(contact.name))
+        )
+      : setFiltredList(list);
+  };
 
-    const searchContact = (name: string): void => {
-        name
-            ? setFiltredList(list.filter(contact => RegExp(name, 'i').test(contact.name)))
-            : setFiltredList(list)
-    };
+  useEffect(() => {
+    const user = sessionStorage.getItem('user') || localStorage.getItem('user');
 
-    useEffect(() => {
-        const user = sessionStorage.getItem('user') || localStorage.getItem('user');
+    if (user && !isLogin) {
+      setIsFetching(true);
 
-        if (user && !isLogin) {
-            setIsFetching(true);
+      const data: LoginData = { grantAccess: { ...JSON.parse(user) } };
 
-            const data: LoginData = { grantAccess: { ...JSON.parse(user) } };
-
-            dispatch(loginUser(data))
-                .then((result) => {
-                    if (loginUser.rejected.match(result)) {
-                        navigate('/login');
-                    }
-                })
+      dispatch(loginUser(data)).then((result) => {
+        if (loginUser.rejected.match(result)) {
+          navigate('/login');
         }
-        else if (!isLogin && !isFetching) {
-            navigate('/login');
-        }        
-    }, [isLogin]);
+      });
+    } else if (!isLogin && !isFetching) {
+      navigate('/login');
+    }
+  }, [isLogin]);
 
-    useEffect(() => {                
-        if (isLogin) {
-            dispatch(getContacts(accessToken!));
-        }
-    }, [isLogin]);
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getContacts(accessToken!));
+    }
+  }, [isLogin]);
 
-    useEffect(() => {
-        setFiltredList(list);
+  useEffect(() => {
+    setFiltredList(list);
 
-        (status === 'pending') || (!filtredList)
-            ? setIsFetching(true)
-            : setIsFetching(false)
-    }, [list, status]);
+    status === 'pending' || !filtredList
+      ? setIsFetching(true)
+      : setIsFetching(false);
+  }, [list, status]);
 
-    return (
-        <div className={styles.list_cont}>
-            <Popup visible={popupVisible}>
-                <ContactEditor contact={popupContact} onCancel={hidePopup} />
-            </Popup>
-            <Header>
-                <Profile />
-                <AddContact onClick={showPopup} />
-                <Search onSearch={searchContact} />
-            </Header>
-            <ContactsList list={filtredList || []} onItemClick={showPopup} isFetching={isFetching} />
-        </div>
-    )
+  return (
+    <div className={styles.list_cont}>
+      <Popup visible={popupVisible}>
+        <ContactEditor contact={popupContact} onCancel={hidePopup} />
+      </Popup>
+      <Header>
+        <Profile />
+        <AddContact onClick={showPopup} />
+        <Search onSearch={searchContact} />
+      </Header>
+      <ContactsList
+        list={filtredList || []}
+        onItemClick={showPopup}
+        isFetching={isFetching}
+      />
+    </div>
+  );
 };
 
 export default Contacts;

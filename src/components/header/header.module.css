@@ -1,22 +1,24 @@
 .header__pad {
-    height: calc( var(--header-height) + 10px );
-    }
+  height: calc(var(--header-height) + 10px);
+}
 
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: var(--header-height);
-    background-color: lightblue;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
-    left: 0; right: 0; top: 0;
-    position: fixed;
-    z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--header-height);
+  background-color: lightblue;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  z-index: 1;
 }
 
 .header__cont {
-    width: var(--layout-width);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: var(--layout-width);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

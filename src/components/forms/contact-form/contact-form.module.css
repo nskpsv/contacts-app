@@ -1,156 +1,155 @@
 .photo {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    width: 200px;
-    margin: 10px 0 20px;
-    box-shadow: 0 0px 5px;
-    border-radius: 5px;
-    overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 200px;
+  margin: 10px 0 20px;
+  box-shadow: 0 0px 5px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .photo__editor {
-    position: absolute;
-    background-color: rgba(255, 255, 255, .3);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    opacity: 0;
-    transition: all .2s ease-in-out, ;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 .photo__editor:hover {
-    cursor: pointer;
-    opacity: 100;
+  cursor: pointer;
+  opacity: 100;
 }
 
 .photo__editor img {
-    width: 20%;
+  width: 20%;
 }
 
 .photo__image {
-    height: 100%;
+  height: 100%;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
 .form__field {
-    position: relative;
-    display: flex;
-    gap: 5px;
-    margin: 0 10px;
-    flex-direction: column;
-    align-items: stretch;
-    width: 80%;
+  position: relative;
+  display: flex;
+  gap: 5px;
+  margin: 0 10px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 80%;
 }
 
 .error {
-    opacity: 0;
-    font-size: 11px;
-    padding: 2px 5px;
-    position: absolute;
-    bottom: -17px;
-    right: 0;
-    color: darkred;
+  opacity: 0;
+  font-size: 11px;
+  padding: 2px 5px;
+  position: absolute;
+  bottom: -17px;
+  right: 0;
+  color: darkred;
 
-    transition: opacity .3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .error--visible {
-    opacity: 100;
+  opacity: 100;
 }
 
 .form__input {
-    padding: 1px 5px;
-    line-height: 1.1rem;
-    border-radius: 3px;
-    box-shadow: 0 0 3px;
-    cursor: text;
-    border: 1px solid white;
+  padding: 1px 5px;
+  line-height: 1.1rem;
+  border-radius: 3px;
+  box-shadow: 0 0 3px;
+  cursor: text;
+  border: 1px solid white;
 
-    transition: border .3s ease-in-out;
+  transition: border 0.3s ease-in-out;
 }
 
 .form__input--error {
-    border: 1px solid darkred;
+  border: 1px solid darkred;
 }
 
 .form__input::-webkit-calendar-picker-indicator {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .form__buttons {
-    width: inherit;
-    display: flex;
-    justify-content: space-evenly;
-
+  width: inherit;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .form__submit_button {
-    margin: 10px;
-    height: 25px;
-    width: 110px;
-    border: none;
-    border-radius: 3px;
-    text-transform: uppercase;
-    background-color: #dcf08c;
-    box-shadow: 0 0 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 10px;
+  height: 25px;
+  width: 110px;
+  border: none;
+  border-radius: 3px;
+  text-transform: uppercase;
+  background-color: #dcf08c;
+  box-shadow: 0 0 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button img {
-    height: 100%;
+  height: 100%;
 }
 
 .form__cancel_button {
-    margin: 10px;
-    height: 25px;
-    width: 110px;
-    border: none;
-    border-radius: 3px;
-    text-transform: uppercase;
-    box-shadow: 0 0 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fae676;
+  margin: 10px;
+  height: 25px;
+  width: 110px;
+  border: none;
+  border-radius: 3px;
+  text-transform: uppercase;
+  box-shadow: 0 0 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fae676;
 }
 
 .form__delete_button {
-    margin: 10px;
-    height: 25px;
-    width: 110px;
-    border: none;
-    border-radius: 3px;
-    text-transform: uppercase;
-    box-shadow: 0 0 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f08c8c;
+  margin: 10px;
+  height: 25px;
+  width: 110px;
+  border: none;
+  border-radius: 3px;
+  text-transform: uppercase;
+  box-shadow: 0 0 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f08c8c;
 }
 
 .form__submit_button:hover,
 .form__cancel_button:hover,
 .form__delete_button:hover {
-    box-shadow: 1px 1px 3px;
-    cursor: pointer;
+  box-shadow: 1px 1px 3px;
+  cursor: pointer;
 }
 
 .form__submit_button:active,
 .form__cancel_button:active,
 .form__delete_button:active {
-    box-shadow: 0 0 3px;
-    cursor: pointer;
+  box-shadow: 0 0 3px;
+  cursor: pointer;
 }

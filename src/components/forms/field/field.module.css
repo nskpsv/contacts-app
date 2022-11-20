@@ -1,28 +1,28 @@
 .field {
-    position: relative;
-    display: flex;
-    gap: 5px;
-    margin: 0 10px;
-    flex-direction: column;
-    align-items: stretch;
-    width: 80%;
+  position: relative;
+  display: flex;
+  gap: 5px;
+  margin: 0 10px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 80%;
 }
 
 .field__error {
-    opacity: 0;    
-    padding: 2px 5px;
-    position: absolute;
-    bottom: -17px;
-    right: 0;
+  opacity: 0;
+  padding: 2px 5px;
+  position: absolute;
+  bottom: -17px;
+  right: 0;
 
-    transition: opacity .3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .field__error--visible {
-    opacity: 100;
+  opacity: 100;
 }
 
 .field__error_message {
-    font-size: 11px;
-    color: darkred;
+  font-size: 11px;
+  color: darkred;
 }

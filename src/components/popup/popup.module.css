@@ -1,18 +1,21 @@
 .popup_container {
-    position: fixed;
-    top: 0; bottom: 0; left: 0; right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, .5);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
 
-    transition: opacity .2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .popup_container--visible {
-    visibility: visible;
-    opacity: 100;
+  visibility: visible;
+  opacity: 100;
 }

@@ -13,7 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p, h1 {
+p,
+h1 {
   margin: 0;
 }
 
@@ -21,7 +22,6 @@ input {
   outline: 0;
   box-shadow: none;
 }
-
 
 #root {
   --header-height: 55px;

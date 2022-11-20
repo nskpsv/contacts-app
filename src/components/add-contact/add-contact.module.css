@@ -1,22 +1,22 @@
 .container {
-    width: 30px;
-    display: flex;
-    background-color: #dcf08c;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 3px rgb(0 0 0 / 50%);
+  width: 30px;
+  display: flex;
+  background-color: #dcf08c;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgb(0 0 0 / 50%);
 }
 
 .container:hover {
-    box-shadow: 1px 1px 3px rgb(0 0 0 / 50%);
-    cursor: pointer;
+  box-shadow: 1px 1px 3px rgb(0 0 0 / 50%);
+  cursor: pointer;
 }
 
 .container:active {
-    box-shadow: 0 0 3px rgb(0 0 0 / 50%);
-    cursor: pointer;
+  box-shadow: 0 0 3px rgb(0 0 0 / 50%);
+  cursor: pointer;
 }
 
 .icon {
-    width: inherit;
+  width: inherit;
 }
